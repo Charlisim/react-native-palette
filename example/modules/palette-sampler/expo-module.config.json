@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["PaletteSamplerModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.palettesampler.PaletteSamplerModule"]
+  }
+}

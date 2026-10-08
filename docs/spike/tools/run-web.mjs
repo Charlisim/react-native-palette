@@ -1,0 +1,18 @@
+import { chromium, webkit, firefox } from 'playwright';
+import { writeFileSync } from 'node:fs';
+const engines = { chromium, webkit, firefox };
+const [name, dprArg, out] = process.argv.slice(2);
+const browser = await engines[name].launch();
+const context = await browser.newContext({ viewport: { width: 420, height: 900 }, deviceScaleFactor: Number(dprArg) });
+const page = await context.newPage();
+const lines = [];
+let done;
+const finished = new Promise((resolve) => (done = resolve));
+page.on('console', (m) => { const t = m.text(); if (t.startsWith('SPIKE_')) { lines.push(t); if (t.startsWith('SPIKE_RESULT')) done(); } else if (m.type() === 'error') lines.push('ERROR ' + t.slice(0, 500)); });
+page.on('pageerror', (e) => lines.push('ERROR pageerror ' + String(e).slice(0, 500)));
+await page.goto('http://localhost:8081/', { waitUntil: 'load' });
+await Promise.race([finished, new Promise((r) => setTimeout(r, 240000))]);
+lines.unshift(`BROWSER ${name} ${browser.version()} dpr=${dprArg}`);
+writeFileSync(out + '.log', lines.join('\n') + '\n');
+await page.screenshot({ path: out + '.png' });
+await browser.close();
