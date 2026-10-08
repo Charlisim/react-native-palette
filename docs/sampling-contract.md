@@ -2,7 +2,8 @@
 
 **Status: DRAFT.** Delivery step 2 locks this contract after the sampling spike.
 The source is [HANDOFF.md](HANDOFF.md), sections "Required sampling contract" and "Proposed API shape".
-API names are proposals. No platform adapter implements this contract.
+API names are proposals. No platform adapter in the package implements this contract.
+The spike adapters in `example/modules/palette-sampler/` are evidence, not the implementation.
 
 ## Undefined items
 
@@ -19,6 +20,24 @@ The spike and delivery step 2 must define these items. Do not treat them as deci
 | Linearization threshold | The shared core uses the WCAG 2.x constant 0.03928. The sRGB standard uses 0.04045. |
 | Invalid backdrop code | The shared core reports an invalid `backdrop` string as `UNRESOLVED_BACKDROP`. |
 | Readiness detection | How an adapter detects non-zero layout and completed image load. |
+
+## Spike inputs for step 2
+
+The sampling spike supplies these inputs. They are not locked. The evidence is in [spike/README.md](spike/README.md).
+All data comes from simulators, one emulator, and headless browsers.
+
+| Item | Spike input |
+| --- | --- |
+| Raster rounding rule | `pixel = floor(logical * scale)` on the mapped capture-root point. The pixel that contains the point. |
+| Sampling footprint | One physical pixel. |
+| Raster tolerance | 1 for each 8-bit channel was sufficient. The maximum observed difference was 0.5. |
+| Capture point | The reported point can differ from the layout value by less than one physical pixel. Android aligns views to physical pixels. |
+| Supported transforms | Translate, scale, and rotate on iOS and Android. Translate only on web. Perspective is rejected. |
+| Capture root effects | The opacity of the capture root is in the sample on iOS and web. It is not in the sample on Android. One rule is necessary. |
+| Readiness detection | The spike waited for `onLoad` of each image. The adapters detect zero size only. |
+| Exclusion scope | Only the requested foreground subtree. A different foreground is background content. |
+| View references | Each reference must have a native view. A flattened view gives `INVALID_VIEW_RELATIONSHIP`. |
+| Web images | The DOM renderer omits a cross-origin image without an error. The adapter must reject it before the capture. |
 
 ## 1. Capture scope and backdrop
 
@@ -149,4 +168,4 @@ That component must expose the failure. A fallback color is not a successful sam
 | Backdrop parse and composition (`src/core/color.ts`) | Implemented, unit tests only. |
 | Luminance, ratio, and selection (`src/core/contrast.ts`) | Implemented, unit tests only. |
 | `sampleContrast` input validation and result flow | Implemented, tested with a fake adapter. |
-| Capture, exclusion, point mapping, decode | Not implemented. |
+| Capture, exclusion, point mapping, decode | Not implemented in the package. Spike code exists in `example/modules/palette-sampler/`. |

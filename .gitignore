@@ -12,3 +12,10 @@ android/build/
 android/app/build/
 android/.gradle/
 .DS_Store
+
+# Example application: installed packages and prebuild output
+/example/node_modules/
+/example/ios/
+/example/android/
+/example/.expo/
+/example/dist/

@@ -8,13 +8,14 @@ It is not a wrapper that accepts a known color and returns black or white.
 
 The package name `palette-react-native` is a placeholder.
 
-## Status: scaffold, no sampling backend exists
+## Status: scaffold and completed sampling spike
 
-- No capture backend exists. No native code exists.
-- `sampleContrast` always rejects with the error code `CAPTURE_FAILED`.
+- The package has no capture backend. Spike native code exists only in the example application.
+- The exported `sampleContrast` always rejects with the error code `CAPTURE_FAILED`.
 - Only the shared TypeScript contrast core is implemented and tested.
 - The package is private. It is not published to npm.
-- The next step is the sampling spike. Refer to [docs/spike/README.md](docs/spike/README.md).
+- The sampling spike is complete on simulators and one emulator. Refer to [docs/spike/README.md](docs/spike/README.md).
+- The next step is delivery step 2: lock the sampling contract.
 
 ## Proposed API
 
@@ -55,7 +56,7 @@ Minimum versions of React Native, Expo, and each operating system are not define
 | `src/errors.ts` | Error codes and the `PaletteError` class. |
 | `src/core/` | Backdrop composition and WCAG contrast selection. No React import, no native import. |
 | `src/adapters/` | Provisional `CaptureAdapter` interface. Platform adapters go here after the spike. |
-| `example/` | Location of the Expo example application. The application does not exist. |
+| `example/` | Expo application with the spike fixture and the local native module `palette-sampler`. |
 | `docs/` | Handoff, draft contract, acceptance matrix, open decisions, and spike brief. |
 
 ## Development
@@ -74,7 +75,7 @@ npm test
 - [docs/sampling-contract.md](docs/sampling-contract.md): draft sampling contract.
 - [docs/acceptance-matrix.md](docs/acceptance-matrix.md): acceptance checklist for each platform.
 - [docs/open-decisions.md](docs/open-decisions.md): open decisions and blockers.
-- [docs/spike/README.md](docs/spike/README.md): spike brief and report template.
+- [docs/spike/README.md](docs/spike/README.md): spike brief and report.
 
 ## Credit
 
