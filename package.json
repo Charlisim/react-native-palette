@@ -1,0 +1,20 @@
+{
+  "name": "palette-react-native",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Rendered-background sampling for React Native. The library selects a black or white foreground from the sampled background.",
+  "license": "MIT",
+  "author": "Carlos Simon",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.14",
+    "typescript": "^6.0.3"
+  }
+}
