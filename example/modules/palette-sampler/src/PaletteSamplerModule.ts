@@ -11,6 +11,7 @@ export interface NativeSample {
   pixelY: number;
   scale: number;
   exclusion: string;
+  effects?: { name: string; containsPoint: boolean }[];
   before: unknown;
   during: unknown;
   after: unknown;
@@ -26,6 +27,9 @@ declare class PaletteSamplerModule extends NativeModule<{}> {
     mode: string,
   ): Promise<NativeSample>;
   inspectAsync(tag: number): Promise<unknown>;
+  locateAsync(tag: number): Promise<{ x: number; y: number; width: number; height: number; scale: number }>;
+  /** Android only. */
+  pixelCopyAsync(rootTag: number, foregroundTag: number, x: number, y: number): Promise<NativeSample>;
 }
 
 export default requireNativeModule<PaletteSamplerModule>('PaletteSampler');

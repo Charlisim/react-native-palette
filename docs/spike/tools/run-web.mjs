@@ -8,10 +8,13 @@ const page = await context.newPage();
 const lines = [];
 let done;
 const finished = new Promise((resolve) => (done = resolve));
-page.on('console', (m) => { const t = m.text(); if (t.startsWith('SPIKE_')) { lines.push(t); if (t.startsWith('SPIKE_RESULT')) done(); } else if (m.type() === 'error') lines.push('ERROR ' + t.slice(0, 500)); });
+// The blur fixture holds each page for some seconds after `SPIKE_FX_SHOT`. The screenshot is the ground truth.
+const shots = [];
+page.on('console', (m) => { const t = m.text(); if (t.startsWith('SPIKE_')) { lines.push(t); if (t.startsWith('SPIKE_FX_SHOT')) shots.push(page.screenshot({ path: `${out}-fx-${JSON.parse(t.slice(14)).page}.png` })); if (t.startsWith('SPIKE_RESULT')) done(); } else if (m.type() === 'error') lines.push('ERROR ' + t.slice(0, 500)); });
 page.on('pageerror', (e) => lines.push('ERROR pageerror ' + String(e).slice(0, 500)));
 await page.goto('http://localhost:8081/', { waitUntil: 'load' });
-await Promise.race([finished, new Promise((r) => setTimeout(r, 240000))]);
+await Promise.race([finished, new Promise((r) => setTimeout(r, 300000))]);
+await Promise.all(shots);
 lines.unshift(`BROWSER ${name} ${browser.version()} dpr=${dprArg}`);
 writeFileSync(out + '.log', lines.join('\n') + '\n');
 await page.screenshot({ path: out + '.png' });

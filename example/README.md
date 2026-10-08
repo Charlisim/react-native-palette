@@ -1,7 +1,7 @@
 # Example application (sampling spike)
 
-This Expo application is the fixture of the sampling spike (delivery step 1).
-The report is in [docs/spike/README.md](../docs/spike/README.md).
+This Expo application is the fixture of the sampling spike (delivery step 1) and of the contract suite (delivery step 2).
+The reports are in [docs/spike/README.md](../docs/spike/README.md) and [docs/spike/blur-and-glass.md](../docs/spike/blur-and-glass.md).
 This application is not the demonstration of delivery step 4.
 
 ## Contents
@@ -10,6 +10,7 @@ This application is not the demonstration of delivery step 4.
 | --- | --- |
 | `App.tsx` | Fixture screen and the automated suite. |
 | `src/fixture.ts` | Fixture geometry and the expected pixel values. |
+| `src/effects.tsx` | Blur and Liquid Glass roots (`expo-blur`, `expo-glass-effect`) and their cases. |
 | `src/baseline/` | Comparison adapter: `react-native-view-shot` with a JS `opacity: 0` exclusion. |
 | `modules/palette-sampler/` | Local Expo module. Swift, Kotlin, and a web variant of the capture adapter. |
 | `scripts/generate-fixtures.mjs` | Writes `assets/fixture.png` and `assets/bands.png`. |
@@ -66,6 +67,8 @@ The suite writes one line for each case to the JavaScript console. Metro shows t
 | `SPIKE_LATENCY` | p50 and p95 of repeated samples. |
 | `SPIKE_FLASH` | Count of samples in the loop for the screen record. |
 | `SPIKE_BASELINE_CASE`, `SPIKE_BASELINE` | Results of the view-shot comparison (iOS and Android only). |
+| `SPIKE_FX_PAGE`, `SPIKE_FX_ROOT`, `SPIKE_FX`, `SPIKE_FX_LATENCY` | Blur and Liquid Glass cases. The application shows these roots on separate pages after the suite. |
+| `SPIKE_FX_SHOT` | The page is static for 6 seconds after this line. Take the ground-truth screenshot in that time. |
 | `SPIKE_RESULT` | Totals and the list of failed cases. |
 
 The screen shows the same results in a table.
@@ -81,3 +84,19 @@ The `Run suite` button starts the suite again.
 
 The top-right square changes color while a sample loop runs.
 The tool counts the magenta foreground pixels in each recorded frame of each loop.
+The experimental compositor modes have their own marker colors and phases.
+
+## Blur and Liquid Glass comparison
+
+1. Save the console output to a file.
+2. After each `SPIKE_FX_SHOT` line, take a screenshot. Name the file `<prefix>-fx-<page>.png`.
+3. Run `node ../docs/spike/tools/fx-compare.mjs <log file> <prefix>`.
+
+Use `xcrun simctl io <udid> screenshot <file>` on iOS and `adb exec-out screencap -p > <file>` on Android.
+`docs/spike/tools/run-web.mjs` takes the screenshots for web.
+Liquid Glass needs iOS 26. On iOS 18, on Android, and on web, `GlassView` is a plain view.
+
+## Experimental modes
+
+The modes `dhRootFalse`, `dhRootTrue`, `dhWindowFalse`, `dhWindowTrue` (iOS) and `pixelCopy` (Android) are experimental.
+They are off by default. The suite uses them for observations only. Do not use them as a sampling backend.

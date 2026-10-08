@@ -1,6 +1,6 @@
 import type { AbortSignalLike, Point, RGBA, ViewRef } from '../types';
 
-// PROVISIONAL. The sampling spike (delivery step 1) decides the final shape.
+// Contract v1 did not change this interface. Delivery step 3 makes it final.
 
 export interface CaptureRequest {
   readonly captureRoot: ViewRef;
