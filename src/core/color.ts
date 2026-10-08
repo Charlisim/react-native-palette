@@ -7,7 +7,7 @@ const OPAQUE_HEX = /^#[0-9a-fA-F]{6}$/;
 export function parseBackdrop(backdrop: string): RGBA {
   if (typeof backdrop !== 'string' || !OPAQUE_HEX.test(backdrop)) {
     throw new PaletteError(
-      'UNRESOLVED_BACKDROP',
+      'INVALID_BACKDROP',
       `The backdrop must be an opaque "#rrggbb" sRGB color. Received: ${String(backdrop)}`,
     );
   }
@@ -40,8 +40,8 @@ export function resolveBackdrop(sample: RGBA, backdrop?: RGBA): RGBA {
       'The sample is translucent and no backdrop was supplied.',
     );
   }
-  if (!isOpaque(backdrop)) {
-    throw new PaletteError('UNRESOLVED_BACKDROP', 'The backdrop must be opaque.');
+  if (!isValidRGBA(backdrop) || !isOpaque(backdrop)) {
+    throw new PaletteError('INVALID_BACKDROP', 'The backdrop must be an opaque sRGB color.');
   }
   const over = (source: number, destination: number) =>
     source * sample.a + destination * (1 - sample.a);

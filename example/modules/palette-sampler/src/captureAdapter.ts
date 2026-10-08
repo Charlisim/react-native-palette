@@ -26,7 +26,10 @@ function toPaletteError(error: unknown): PaletteError {
 function tagOf(view: ViewRef): number {
   const tag = view.current == null ? null : findNodeHandle(view.current as never);
   if (typeof tag !== 'number') {
-    throw new PaletteError('INVALID_VIEW_RELATIONSHIP', 'A view reference is not mounted.');
+    throw new PaletteError(
+      'INVALID_VIEW_RELATIONSHIP',
+      'A view reference is not mounted or has no native view. Set collapsable={false} on the view.',
+    );
   }
   return tag;
 }
@@ -41,13 +44,16 @@ export function createCaptureAdapter(): SpikeCaptureAdapter {
     const foregroundTag = tagOf(request.foreground);
     let native;
     try {
-      native = await PaletteSamplerModule.sampleAsync(
-        rootTag,
-        foregroundTag,
-        request.point.x,
-        request.point.y,
-        requestMode,
-      );
+      native =
+        requestMode === 'pixelCopy'
+          ? await PaletteSamplerModule.pixelCopyAsync(rootTag, foregroundTag, request.point.x, request.point.y)
+          : await PaletteSamplerModule.sampleAsync(
+              rootTag,
+              foregroundTag,
+              request.point.x,
+              request.point.y,
+              requestMode,
+            );
     } catch (error) {
       throw toPaletteError(error);
     }
@@ -59,6 +65,7 @@ export function createCaptureAdapter(): SpikeCaptureAdapter {
       during: native.during,
       after: native.after,
       captureMs: native.nativeMs,
+      effects: native.effects,
     };
     return {
       rgba: { r: native.r, g: native.g, b: native.b, a: native.a },
@@ -79,6 +86,13 @@ export function createCaptureAdapter(): SpikeCaptureAdapter {
     async inspect(view) {
       try {
         return await PaletteSamplerModule.inspectAsync(tagOf(view));
+      } catch (error) {
+        throw toPaletteError(error);
+      }
+    },
+    async locate(view) {
+      try {
+        return await PaletteSamplerModule.locateAsync(tagOf(view));
       } catch (error) {
         throw toPaletteError(error);
       }

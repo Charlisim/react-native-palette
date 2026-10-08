@@ -31,11 +31,12 @@ describe('parseBackdrop', () => {
     '#ffffff\n',
     '',
   ])('rejects %j', (input) => {
-    expect(codeOf(() => parseBackdrop(input))).toBe('UNRESOLVED_BACKDROP');
+    expect(codeOf(() => parseBackdrop(input))).toBe('INVALID_BACKDROP');
   });
 
   it('rejects a value that is not a string', () => {
-    expect(codeOf(() => parseBackdrop(0xffffff as unknown as string))).toBe('UNRESOLVED_BACKDROP');
+    expect(codeOf(() => parseBackdrop(0xffffff as unknown as string))).toBe('INVALID_BACKDROP');
+    expect(codeOf(() => parseBackdrop(null as unknown as string))).toBe('INVALID_BACKDROP');
   });
 });
 
@@ -67,9 +68,19 @@ describe('resolveBackdrop', () => {
     expect(codeOf(() => resolveBackdrop({ r: 0, g: 0, b: 0, a: 0 }))).toBe('UNRESOLVED_BACKDROP');
   });
 
-  it('rejects a translucent backdrop', () => {
+  it('treats an alpha below 1 as translucent', () => {
+    expect(codeOf(() => resolveBackdrop({ r: 1, g: 1, b: 1, a: 254 / 255 }))).toBe('UNRESOLVED_BACKDROP');
+  });
+
+  it('rejects a translucent backdrop with INVALID_BACKDROP', () => {
     expect(
       codeOf(() => resolveBackdrop({ r: 0, g: 0, b: 0, a: 0.5 }, { r: 1, g: 1, b: 1, a: 0.5 })),
-    ).toBe('UNRESOLVED_BACKDROP');
+    ).toBe('INVALID_BACKDROP');
+  });
+
+  it('rejects a backdrop with a channel outside 0..1', () => {
+    expect(
+      codeOf(() => resolveBackdrop({ r: 0, g: 0, b: 0, a: 0.5 }, { r: 2, g: 1, b: 1, a: 1 })),
+    ).toBe('INVALID_BACKDROP');
   });
 });

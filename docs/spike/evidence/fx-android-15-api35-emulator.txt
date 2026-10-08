@@ -1,0 +1,163 @@
+SPIKE_FX_PAGE {"page":0,"roots":["control","blur-light-50","blur-dark-100","blur-default-20","blur-none-light-50","rn-filter-blur"],"images":"loaded","glassAvailable":false}
+SPIKE_FX_ROOT {"root":"control","kind":"control","role":"background","effectActive":false,"rect":{"x":8,"y":60.19047619047619,"width":180.1904761904762,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_ROOT {"root":"blur-light-50","kind":"blur","role":"background","effectActive":true,"rect":{"x":196.1904761904762,"y":60.19047619047619,"width":179.8095238095238,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_ROOT {"root":"blur-dark-100","kind":"blur","role":"background","effectActive":true,"rect":{"x":8,"y":260.1904761904762,"width":180.1904761904762,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_ROOT {"root":"blur-default-20","kind":"blur","role":"background","effectActive":true,"rect":{"x":196.1904761904762,"y":260.1904761904762,"width":179.8095238095238,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_ROOT {"root":"blur-none-light-50","kind":"blur-none","role":"background","effectActive":false,"rect":{"x":8,"y":460.1904761904762,"width":180.1904761904762,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_ROOT {"root":"rn-filter-blur","kind":"rn-filter","role":"background","effectActive":true,"rect":{"x":196.1904761904762,"y":460.1904761904762,"width":179.8095238095238,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"normal (point not below the effect)","n":30,"errors":0,"p50":0.318,"p95":4.028,"nativeP50":0.057,"nativeP95":0.228}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"skipEffectCheck (point below the effect)","n":30,"errors":0,"p50":0.584,"p95":5.201,"nativeP50":0.286,"nativeP95":3.742}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"pixelCopy","n":30,"errors":0,"p50":0.865,"p95":6.803,"nativeP50":0.631,"nativeP95":6.593}
+SPIKE_FX_PAGE {"page":1,"roots":["glass-regular","fg-blur-light-50","fg-glass-regular"],"images":"loaded","glassAvailable":false}
+SPIKE_FX_ROOT {"root":"glass-regular","kind":"glass","role":"background","effectActive":false,"rect":{"x":8,"y":60.19047619047619,"width":180.1904761904762,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_ROOT {"root":"fg-blur-light-50","kind":"blur","role":"foreground","effectActive":true,"rect":{"x":196.1904761904762,"y":60.19047619047619,"width":179.8095238095238,"height":179.8095238095238,"scale":2.625}}
+SPIKE_FX_ROOT {"root":"fg-glass-regular","kind":"glass","role":"foreground","effectActive":false,"rect":{"x":8,"y":260.1904761904762,"width":180.1904761904762,"height":179.8095238095238,"scale":2.625}}
+SCREENSHOT page 0: android-fx-0.png 1080x2400
+PASS | control/flat-white/normal | active false | exp 127.5,127.5,127.5,255 | sampled 127,127,127,255 | screen 127,127,127 @139,276 | range7x7 0 | sampled-screen 0 | 0.543 ms | -
+PASS | control/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @375,276 | range7x7 0 | sampled-screen 0 | 0.533 ms | -
+PASS | control/flat-orange/normal | active false | exp 127.5,74.5,0,255 | sampled 127,74,0,255 | screen 127,74,0 @139,512 | range7x7 0 | sampled-screen 0 | 0.384 ms | -
+PASS | control/flat-blue/normal | active false | exp 0,0,127.5,255 | sampled 0,0,127,255 | screen 0,0,127 @375,512 | range7x7 0 | sampled-screen 0 | 0.341 ms | -
+PASS | control/edge/normal | active false | exp 127.5,127.5,127.5,255 | sampled 127,127,127,255 | screen 127,127,127 @247,276 | range7x7 0 | sampled-screen 0 | 0.439 ms | -
+PASS | control/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @42,179 | range7x7 0 | sampled-screen 0 | 0.303 ms | -
+PASS | blur-light-50/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 244.9,244.9,244.9 @633,276 | range7x7 19 | sampled-screen - | 0.631 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-light-50/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 102.8,102.8,102.8 @869,276 | range7x7 15 | sampled-screen - | 0.13 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-light-50/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 245.4,185.4,101.4 @633,512 | range7x7 18 | sampled-screen - | 0.595 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-light-50/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 103.2,103.2,247.2 @869,512 | range7x7 13 | sampled-screen - | 1.186 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-light-50/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 194.8,194.8,194.8 @740,276 | range7x7 17 | sampled-screen - | 0.163 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-light-50/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @536,179 | range7x7 0 | sampled-screen 0 | 0.334 ms | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+PASS | blur-dark-100/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 91.3,90.6,89.6 @139,801 | range7x7 9 | sampled-screen - | 0.225 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-dark-100/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 21.8,21.8,23.2 @375,801 | range7x7 8 | sampled-screen - | 0.2 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-dark-100/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 91.3,62,22.4 @139,1037 | range7x7 9 | sampled-screen - | 0.22 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-dark-100/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 21.9,21.1,90.8 @375,1037 | range7x7 6 | sampled-screen - | 0.37 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-dark-100/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 61.8,61.4,61.7 @246,801 | range7x7 8 | sampled-screen - | 0.276 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-dark-100/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @42,704 | range7x7 0 | sampled-screen 0 | 0.685 ms | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+PASS | blur-default-20/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 242.9,242.9,242.9 @633,801 | range7x7 27 | sampled-screen - | 0.237 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-default-20/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 30.7,30.7,30.7 @869,801 | range7x7 23 | sampled-screen - | 0.345 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-default-20/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 243.4,154.1,29 @633,1037 | range7x7 26 | sampled-screen - | 0.361 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-default-20/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 31.1,31.1,246.8 @869,1037 | range7x7 20 | sampled-screen - | 0.459 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-default-20/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 203.3,203.3,203.3 @740,801 | range7x7 29 | sampled-screen - | 0.228 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | blur-default-20/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @536,704 | range7x7 0 | sampled-screen 0 | 0.397 ms | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+PASS | blur-none-light-50/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @42,1229 | range7x7 0 | sampled-screen 0 | 0.494 ms | -
+PASS | rn-filter-blur/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,255,255 @633,1326 | range7x7 0 | sampled-screen - | 0.177 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (React Native filter style (RenderEffect)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 0,0,0 @869,1326 | range7x7 0 | sampled-screen - | 0.198 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (React Native filter style (RenderEffect)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,149,0 @633,1562 | range7x7 0 | sampled-screen - | 1.843 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (React Native filter style (RenderEffect)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 0,0,255 @869,1562 | range7x7 0 | sampled-screen - | 0.714 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (React Native filter style (RenderEffect)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 195,195,195 @740,1326 | range7x7 16 | sampled-screen - | 0.202 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (React Native filter style (RenderEffect)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @536,1229 | range7x7 0 | sampled-screen 0 | 0.368 ms | React Native filter style (RenderEffect)
+SCREENSHOT page 1: android-fx-1.png 1080x2400
+PASS | glass-regular/flat-white/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @139,276 | range7x7 0 | sampled-screen 0 | 0.606 ms | -
+PASS | glass-regular/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @375,276 | range7x7 0 | sampled-screen 0 | 0.356 ms | -
+PASS | glass-regular/flat-orange/normal | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @139,512 | range7x7 0 | sampled-screen 0 | 0.352 ms | -
+PASS | glass-regular/flat-blue/normal | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @375,512 | range7x7 0 | sampled-screen 0 | 0.325 ms | -
+PASS | glass-regular/edge/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @247,276 | range7x7 0 | sampled-screen 0 | 0.944 ms | -
+PASS | glass-regular/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @42,179 | range7x7 0 | sampled-screen 0 | 0.609 ms | -
+PASS | fg-blur-light-50/flat-white/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 244.9,244.9,244.9 @633,276 | range7x7 19 | sampled-screen 10.1 | 0.569 ms | -
+PASS | fg-blur-light-50/flat-white/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 244.9,244.9,244.9 @633,276 | range7x7 19 | sampled-screen - | 0.435 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | fg-blur-light-50/flat-black/normal | active true | exp 0,0,0,255 | sampled 0,0,0,255 | screen 102.8,102.8,102.8 @869,276 | range7x7 15 | sampled-screen 102.8 | 4.79 ms | -
+PASS | fg-blur-light-50/flat-black/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 102.8,102.8,102.8 @869,276 | range7x7 15 | sampled-screen - | 0.244 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | fg-blur-light-50/flat-orange/normal | active true | exp 255,149,0,255 | sampled 255,149,0,255 | screen 245.4,185.4,101.4 @633,512 | range7x7 18 | sampled-screen 101.4 | 0.519 ms | -
+PASS | fg-blur-light-50/flat-orange/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 245.4,185.4,101.4 @633,512 | range7x7 18 | sampled-screen - | 0.201 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | fg-blur-light-50/flat-blue/normal | active true | exp 0,0,255,255 | sampled 0,0,255,255 | screen 103.2,103.2,247.2 @869,512 | range7x7 13 | sampled-screen 103.2 | 0.528 ms | -
+PASS | fg-blur-light-50/flat-blue/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 103.2,103.2,247.2 @869,512 | range7x7 13 | sampled-screen - | 0.224 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | fg-blur-light-50/edge/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 194.3,194.3,194.3 @741,276 | range7x7 12 | sampled-screen 60.7 | 0.645 ms | -
+PASS | fg-blur-light-50/edge/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 194.8,194.8,194.8 @740,276 | range7x7 17 | sampled-screen - | 0.177 ms | - | Call to function 'PaletteSampler.sampleAsync' has been rejected.
+→ Caused by: [UNSUPPORTED_CONTENT] An effect view (eightbitlab.com.blurview.BlurView (RenderNodeBlurController)) covers the sample point. The capture cannot render this effect
+PASS | fg-blur-light-50/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @536,179 | range7x7 0 | sampled-screen 0 | 1.317 ms | -
+PASS | fg-blur-light-50/outside/inner | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @536,180 | range7x7 0 | sampled-screen 0 | 0.353 ms | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+PASS | fg-glass-regular/flat-white/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @139,801 | range7x7 0 | sampled-screen 0 | 2.665 ms | -
+PASS | fg-glass-regular/flat-white/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @139,802 | range7x7 0 | sampled-screen 0 | 0.557 ms | -
+PASS | fg-glass-regular/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @375,801 | range7x7 0 | sampled-screen 0 | 0.448 ms | -
+PASS | fg-glass-regular/flat-black/inner | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @375,802 | range7x7 0 | sampled-screen 0 | 0.327 ms | -
+PASS | fg-glass-regular/flat-orange/normal | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @139,1037 | range7x7 0 | sampled-screen 0 | 0.961 ms | -
+PASS | fg-glass-regular/flat-orange/inner | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @139,1038 | range7x7 0 | sampled-screen 0 | 0.319 ms | -
+PASS | fg-glass-regular/flat-blue/normal | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @375,1037 | range7x7 0 | sampled-screen 0 | 0.717 ms | -
+PASS | fg-glass-regular/flat-blue/inner | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @375,1038 | range7x7 0 | sampled-screen 0 | 0.266 ms | -
+PASS | fg-glass-regular/edge/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @247,801 | range7x7 0 | sampled-screen 0 | 0.543 ms | -
+PASS | fg-glass-regular/edge/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @247,802 | range7x7 0 | sampled-screen 0 | 0.355 ms | -
+PASS | fg-glass-regular/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @42,704 | range7x7 0 | sampled-screen 0 | 0.577 ms | -
+PASS | fg-glass-regular/outside/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @42,705 | range7x7 0 | sampled-screen 0 | 0.294 ms | -
+DETECTED | blur-light-50 | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+DETECTED | blur-dark-100 | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+DETECTED | blur-default-20 | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+DETECTED | rn-filter-blur | React Native filter style (RenderEffect)
+DETECTED | fg-blur-light-50 | eightbitlab.com.blurview.BlurView (RenderNodeBlurController)
+TABLE | root | point | screen RGB | range7x7 | raw | normal | pixelCopy | inner-raw | inner | inner-pixelCopy
+TABLE | control | flat-white | 127,127,127 | 0 | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | - | - | -
+TABLE | control | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | - | - | -
+TABLE | control | flat-orange | 127,74,0 | 0 | 127,74,0,255 (0) | 127,74,0,255 (0) | 127,74,0,255 (0) | - | - | -
+TABLE | control | flat-blue | 0,0,127 | 0 | 0,0,127,255 (0) | 0,0,127,255 (0) | 0,0,127,255 (0) | - | - | -
+TABLE | control | edge | 127,127,127 | 0 | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | - | - | -
+TABLE | control | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | blur-light-50 | flat-white | 244.9,244.9,244.9 | 19 | 252,252,252,255 (7.1) | UNSUPPORTED_CONTENT | 252,252,252,255 (7.1) | - | - | -
+TABLE | blur-light-50 | flat-black | 102.8,102.8,102.8 | 15 | 98,98,98,255 (4.8) | UNSUPPORTED_CONTENT | 98,98,98,255 (4.8) | - | - | -
+TABLE | blur-light-50 | flat-orange | 245.4,185.4,101.4 | 18 | 251,194,114,255 (12.6) | UNSUPPORTED_CONTENT | 251,194,114,255 (12.6) | - | - | -
+TABLE | blur-light-50 | flat-blue | 103.2,103.2,247.2 | 13 | 106,106,248,255 (2.8) | UNSUPPORTED_CONTENT | 106,106,248,255 (2.8) | - | - | -
+TABLE | blur-light-50 | edge | 194.3,194.3,194.3 | 12 | 212,212,212,255 (17.7) | UNSUPPORTED_CONTENT | 196,196,196,255 (1.7) | - | - | -
+TABLE | blur-light-50 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | blur-dark-100 | flat-white | 91.3,90.6,89.6 | 9 | 96,96,96,255 (6.4) | UNSUPPORTED_CONTENT | 94,94,93,255 (3.4) | - | - | -
+TABLE | blur-dark-100 | flat-black | 21.8,21.8,23.2 | 8 | 17,17,17,255 (6.2) | UNSUPPORTED_CONTENT | 19,19,21,255 (2.8) | - | - | -
+TABLE | blur-dark-100 | flat-orange | 91.3,62,22.4 | 9 | 95,66,26,255 (4) | UNSUPPORTED_CONTENT | 94,66,29,255 (6.6) | - | - | -
+TABLE | blur-dark-100 | flat-blue | 21.9,21.1,90.8 | 6 | 22,22,94,255 (3.2) | UNSUPPORTED_CONTENT | 23,23,91,255 (1.9) | - | - | -
+TABLE | blur-dark-100 | edge | 61.9,61.6,61.8 | 5 | 67,67,67,255 (5.4) | UNSUPPORTED_CONTENT | 62,62,62,255 (0.4) | - | - | -
+TABLE | blur-dark-100 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | blur-default-20 | flat-white | 242.9,242.9,242.9 | 27 | 253,253,253,255 (10.1) | UNSUPPORTED_CONTENT | 253,253,253,255 (10.1) | - | - | -
+TABLE | blur-default-20 | flat-black | 30.7,30.7,30.7 | 23 | 23,23,23,255 (7.7) | UNSUPPORTED_CONTENT | 23,23,23,255 (7.7) | - | - | -
+TABLE | blur-default-20 | flat-orange | 243.4,154.1,29 | 26 | 251,166,48,255 (19) | UNSUPPORTED_CONTENT | 251,166,48,255 (19) | - | - | -
+TABLE | blur-default-20 | flat-blue | 31.1,31.1,246.8 | 20 | 36,36,248,255 (4.9) | UNSUPPORTED_CONTENT | 36,36,248,255 (4.9) | - | - | -
+TABLE | blur-default-20 | edge | 200.2,200.2,200.2 | 29 | 237,237,237,255 (36.8) | UNSUPPORTED_CONTENT | 205,205,205,255 (4.8) | - | - | -
+TABLE | blur-default-20 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | blur-none-light-50 | flat-white | 253,253,253 | 0 | 253,253,253,255 (0) | 253,253,253,255 (0) | 253,253,253,255 (0) | - | - | -
+TABLE | blur-none-light-50 | flat-black | 97,97,97 | 0 | 97,97,97,255 (0) | 97,97,97,255 (0) | 97,97,97,255 (0) | - | - | -
+TABLE | blur-none-light-50 | flat-orange | 253,188,97 | 0 | 253,188,97,255 (0) | 253,188,97,255 (0) | 253,188,97,255 (0) | - | - | -
+TABLE | blur-none-light-50 | flat-blue | 97,97,253 | 0 | 97,97,253,255 (0) | 97,97,253,255 (0) | 97,97,253,255 (0) | - | - | -
+TABLE | blur-none-light-50 | edge | 253,253,253 | 0 | 253,253,253,255 (0) | 253,253,253,255 (0) | 253,253,253,255 (0) | - | - | -
+TABLE | blur-none-light-50 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | rn-filter-blur | flat-white | 255,255,255 | 0 | 255,255,255,255 (0) | UNSUPPORTED_CONTENT | 255,255,255,255 (0) | - | - | -
+TABLE | rn-filter-blur | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | UNSUPPORTED_CONTENT | 0,0,0,255 (0) | - | - | -
+TABLE | rn-filter-blur | flat-orange | 255,149,0 | 0 | 255,149,0,255 (0) | UNSUPPORTED_CONTENT | 255,149,0,255 (0) | - | - | -
+TABLE | rn-filter-blur | flat-blue | 0,0,255 | 0 | 0,0,255,255 (0) | UNSUPPORTED_CONTENT | 0,0,255,255 (0) | - | - | -
+TABLE | rn-filter-blur | edge | 189.7,189.7,189.7 | 16 | 255,255,255,255 (65.3) | UNSUPPORTED_CONTENT | 190,190,190,255 (0.3) | - | - | -
+TABLE | rn-filter-blur | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | glass-regular | flat-white | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | glass-regular | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | - | - | -
+TABLE | glass-regular | flat-orange | 255,149,0 | 0 | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | - | - | -
+TABLE | glass-regular | flat-blue | 0,0,255 | 0 | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | - | - | -
+TABLE | glass-regular | edge | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | glass-regular | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | -
+TABLE | fg-blur-light-50 | flat-white | 244.9,244.9,244.9 | 19 | - | 255,255,255,255 (10.1) | - | 253,253,253,255 (5.6) | UNSUPPORTED_CONTENT | 252,252,252,255 (4.6)
+TABLE | fg-blur-light-50 | flat-black | 102.8,102.8,102.8 | 15 | - | 0,0,0,255 (102.8) | - | 108,108,108,255 (5.6) | UNSUPPORTED_CONTENT | 108,108,108,255 (5.6)
+TABLE | fg-blur-light-50 | flat-orange | 245.4,185.4,101.4 | 18 | - | 255,149,0,255 (101.4) | - | 241,182,99,255 (6.6) | UNSUPPORTED_CONTENT | 241,182,99,255 (6.6)
+TABLE | fg-blur-light-50 | flat-blue | 103.2,103.2,247.2 | 13 | - | 0,0,255,255 (103.2) | - | 98,98,253,255 (6.6) | UNSUPPORTED_CONTENT | 98,98,252,255 (5.7)
+TABLE | fg-blur-light-50 | edge | 194.3,194.3,194.3 | 12 | - | 255,255,255,255 (60.7) | - | 209,209,209,255 (15) | UNSUPPORTED_CONTENT | 195,195,195,255 (1)
+TABLE | fg-blur-light-50 | outside | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | flat-white | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | flat-black | 0,0,0 | 0 | - | 0,0,0,255 (0) | - | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0)
+TABLE | fg-glass-regular | flat-orange | 255,149,0 | 0 | - | 255,149,0,255 (0) | - | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0)
+TABLE | fg-glass-regular | flat-blue | 0,0,255 | 0 | - | 0,0,255,255 (0) | - | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0)
+TABLE | fg-glass-regular | edge | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | outside | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+FX_SUMMARY judged 61 passed 61 observations 113

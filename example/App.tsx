@@ -20,6 +20,18 @@ import type { Foreground, SampleContrastResult } from 'palette-react-native/src/
 import { createCaptureAdapter, type SamplerMode } from './modules/palette-sampler';
 import { createViewShotAdapter } from './src/baseline/viewShotAdapter';
 import {
+  COMPOSITOR_MODES,
+  EffectsPage,
+  FX_PAGES,
+  FX_ROOTS,
+  glassAvailable,
+  imagesOnPage,
+  runEffectsLatency,
+  runEffectsPage,
+  useFxRefs,
+  type FxRec,
+} from './src/effects';
+import {
   CLEAR,
   FOREGROUND,
   FRAME,
@@ -28,6 +40,7 @@ import {
   OVERLAY,
   PRESETS,
   RESIDUAL,
+  ROOT_TRANSFORM,
   SCROLL,
   SCROLL_BLOCKS,
   TRANSPARENT_CHILD,
@@ -43,8 +56,8 @@ import {
   type Rgba8,
 } from './src/fixture';
 
-/** Maximum difference for each 8-bit channel. The report records the maximum observed difference. */
-const TOLERANCE = 2;
+/** Contract v1 raster tolerance: maximum difference for each 8-bit channel. */
+const TOLERANCE = 1;
 /** Maximum difference of the capture point in logical units. */
 const POINT_TOLERANCE = 0.5;
 const LATENCY_N = 200;
@@ -52,7 +65,19 @@ const BASELINE_LATENCY_N = 30;
 const FLASH_MS = 5000;
 const IMAGES = Platform.OS === 'web' ? 4 : 3;
 
-type RootId = 'main' | 'scroll' | 'cover' | 'contain' | 'residual' | 'zero' | 'opacity' | 'flat' | 'cross';
+type RootId =
+  | 'main'
+  | 'scroll'
+  | 'cover'
+  | 'contain'
+  | 'residual'
+  | 'zero'
+  | 'opacity'
+  | 'flat'
+  | 'cross'
+  | 'rootTranslate'
+  | 'rootScale'
+  | 'rootRotate';
 type FgId =
   | 'move'
   | 'child'
@@ -68,11 +93,14 @@ type FgId =
   | 'opacity'
   | 'flat'
   | 'cross'
-  | 'unmount';
+  | 'unmount'
+  | 'rootTranslate'
+  | 'rootScale'
+  | 'rootRotate';
 
 type Expectation =
   | { kind: 'color'; capture: Pt; rgba8: Rgba8; foreground: Foreground }
-  | { kind: 'error'; code: string; sampled?: Rgba8 }
+  | { kind: 'error'; code: string; sampled?: Rgba8; messageIncludes?: string }
   | { kind: 'observe' };
 
 interface Case {
@@ -88,6 +116,8 @@ interface Case {
   /** The web adapter supports a smaller transform subset. */
   webExpect?: Expectation;
   special?: 'abort' | 'unmount';
+  /** Text for the record of an observation. */
+  hint?: string;
 }
 
 const color = (capture: Pt, rgba8: Rgba8, foreground: Foreground): Expectation => ({
@@ -99,6 +129,7 @@ const color = (capture: Pt, rgba8: Rgba8, foreground: Foreground): Expectation =
 const main = (x: number, y: number, foreground: Foreground) => color({ x, y }, expectedMain({ x, y }), foreground);
 const UNSUPPORTED: Expectation = { kind: 'error', code: 'UNSUPPORTED_CONTENT' };
 const NATIVE = ['ios', 'android'];
+const ROOT_LOCAL_HINT = 'root-local rule gives 0,0,0,255 at (55, 5); a screen-space mapping gives a different point';
 
 const CASES: readonly Case[] = [
   { id: 'image-white', root: 'main', fg: 'move', preset: 'tl-white', expect: main(20, 20, 'black') },
@@ -144,6 +175,8 @@ const CASES: readonly Case[] = [
     expect: main(165, 25, 'white'),
     webExpect: UNSUPPORTED,
   },
+  // Contract v1: a perspective transform is not supported on a platform.
+  { id: 'transform-perspective', root: 'main', fg: 'move', preset: 'perspective', expect: UNSUPPORTED },
   {
     id: 'scroll-offset',
     root: 'scroll',
@@ -199,6 +232,24 @@ const CASES: readonly Case[] = [
   },
   { id: 'error-zero-size-root', root: 'zero', fg: 'zero', expect: { kind: 'error', code: 'NOT_READY' } },
   {
+    id: 'error-invalid-backdrop',
+    root: 'main',
+    fg: 'move',
+    preset: 'tl-white',
+    backdrop: '#fff',
+    expect: { kind: 'error', code: 'INVALID_BACKDROP' },
+  },
+  // No `collapsable={false}`: React Native flattens the root. The message must name the cause.
+  {
+    id: 'error-flattened-root',
+    root: 'flat',
+    fg: 'flat',
+    only: NATIVE,
+    expect: { kind: 'error', code: 'INVALID_VIEW_RELATIONSHIP', messageIncludes: 'collapsable={false}' },
+  },
+  // Contract v1: the opacity of the capture root is not part of the sample.
+  { id: 'root-opacity-excluded', root: 'opacity', fg: 'opacity', expect: color({ x: 10, y: 5 }, WHITE, 'black') },
+  {
     id: 'error-cross-origin-image',
     root: 'cross',
     fg: 'cross',
@@ -240,9 +291,32 @@ const CASES: readonly Case[] = [
     expect: main(20, 20, 'black'),
   },
   { id: 'observe-unmount-in-flight', root: 'residual', fg: 'unmount', special: 'unmount', expect: { kind: 'observe' } },
-  { id: 'observe-root-opacity', root: 'opacity', fg: 'opacity', expect: { kind: 'observe' } },
-  { id: 'observe-flattened-root', root: 'flat', fg: 'flat', only: NATIVE, expect: { kind: 'observe' } },
+  // The transform of the capture root itself. Contract v1 does not define it. These cases record it.
+  { id: 'observe-root-translate', root: 'rootTranslate', fg: 'rootTranslate', expect: { kind: 'observe' }, hint: ROOT_LOCAL_HINT },
+  { id: 'observe-root-scale', root: 'rootScale', fg: 'rootScale', expect: { kind: 'observe' }, hint: ROOT_LOCAL_HINT },
+  { id: 'observe-root-rotate', root: 'rootRotate', fg: 'rootRotate', expect: { kind: 'observe' }, hint: ROOT_LOCAL_HINT },
+  // EXPERIMENTAL compositor modes. Magenta means that the foreground is in the capture.
+  ...COMPOSITOR_MODES.map(
+    (mode): Case => ({
+      id: `observe-${mode}-exclusion`,
+      root: 'main',
+      fg: 'move',
+      preset: 'tl-white',
+      mode,
+      expect: { kind: 'observe' },
+      hint: 'excluded foreground gives 255,255,255,255; magenta means that the foreground is in the capture',
+    }),
+  ),
 ];
+
+const MARKER_COLORS: Record<string, string> = {
+  primary: '#00ffc8',
+  baseline: '#ffc800',
+  dhRootFalse: '#0064ff',
+  dhRootTrue: '#78ff00',
+  dhWindowFalse: '#00c864',
+  dhWindowTrue: '#9664ff',
+};
 
 const BASELINE_CASES = ['image-white', 'image-blue', 'overlay-on-orange', 'explicit-point', 'transform-translate'];
 
@@ -335,6 +409,9 @@ export default function App() {
     opacity: { current: null },
     flat: { current: null },
     cross: { current: null },
+    rootTranslate: { current: null },
+    rootScale: { current: null },
+    rootRotate: { current: null },
   }).current;
   const fgRefs = useRef<Record<FgId, React.RefObject<View | null>>>({
     move: { current: null },
@@ -352,7 +429,19 @@ export default function App() {
     flat: { current: null },
     cross: { current: null },
     unmount: { current: null },
+    rootTranslate: { current: null },
+    rootScale: { current: null },
+    rootRotate: { current: null },
   }).current;
+  const fxRefs = useFxRefs();
+  const [fxPage, setFxPage] = useState<number | null>(null);
+  const fxLoad = useRef<{ left: number; done: () => void } | null>(null);
+  const onFxLoad = useCallback(() => {
+    const pending = fxLoad.current;
+    if (pending && (pending.left -= 1) <= 0) {
+      pending.done();
+    }
+  }, []);
   const scrollRef = useRef<ScrollView>(null);
   const scrollOffset = useRef(0);
 
@@ -361,7 +450,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(0);
   const [records, setRecords] = useState<Rec[]>([]);
   const [status, setStatus] = useState('Waiting for layout and image load');
-  const [marker, setMarker] = useState<'primary' | 'baseline' | null>(null);
+  const [marker, setMarker] = useState<string | null>(null);
   const [showUnmount, setShowUnmount] = useState(true);
   const [manual, setManual] = useState<string>('');
   const running = useRef(false);
@@ -468,7 +557,7 @@ export default function App() {
       const detail = error === undefined && c.special !== 'unmount' ? adapter.lastDetail() : undefined;
       const sample = lastSample.current as CaptureSample | undefined;
 
-      const rec: Rec = { id: c.id, backend: adapter.backend, expected: expectation, ms, pass: null, note };
+      const rec: Rec = { id: c.id, backend: adapter.backend, expected: expectation, ms, pass: null, note: note ?? c.hint };
       if (sample) {
         rec.sampled = to8(sample.rgba);
         rec.capturePoint = { x: round(sample.capturePoint.x), y: round(sample.capturePoint.y) };
@@ -491,8 +580,8 @@ export default function App() {
       }
       if (error !== undefined) {
         rec.error = error instanceof PaletteError ? error.code : `UNEXPECTED ${String(error)}`;
-        if (!(error instanceof PaletteError) || c.expect.kind === 'observe') {
-          rec.note = String((error as Error)?.message ?? error);
+        if (!(error instanceof PaletteError) || c.expect.kind === 'observe' || expectation.kind === 'error') {
+          rec.note = String((error as Error)?.message ?? error).slice(0, 200);
         }
       }
 
@@ -515,6 +604,9 @@ export default function App() {
         }
       } else if (expectation.kind === 'error') {
         rec.pass = rec.error === expectation.code && rec.stateRestored;
+        if (expectation.messageIncludes) {
+          rec.pass = rec.pass && String((error as Error)?.message ?? '').includes(expectation.messageIncludes);
+        }
         if (expectation.sampled) {
           rec.channelDelta = rec.sampled ? round(maxDelta(rec.sampled, expectation.sampled)) : undefined;
           rec.pass = rec.pass && rec.channelDelta !== undefined && rec.channelDelta <= TOLERANCE;
@@ -609,6 +701,28 @@ export default function App() {
       await sleep(700);
       emit('SPIKE_FLASH', { backend: adapter.backend, durationMs: FLASH_MS, samples: flashSamples, wrongSamples: flashWrong });
 
+      // EXPERIMENTAL. The same flash check for each compositor mode that hides the foreground (iOS).
+      for (const mode of COMPOSITOR_MODES.filter((candidate) => candidate !== 'pixelCopy')) {
+        adapter.setMode(mode);
+        setMarker(mode);
+        await sleep(700);
+        let samples = 0;
+        let magenta = 0;
+        let errors = 0;
+        const end = now() + FLASH_MS;
+        while (now() < end) {
+          const result = await sampleContrast(request).catch(() => undefined);
+          if (!result) errors += 1;
+          else if (maxDelta(to8(result.sampledRGBA), MAGENTA) <= TOLERANCE) magenta += 1;
+          samples += 1;
+        }
+        adapter.setMode('normal');
+        await sleep(300);
+        setMarker(null);
+        await sleep(700);
+        emit('SPIKE_FLASH', { backend: `experimental-${mode}`, durationMs: FLASH_MS, samples, foregroundInSample: magenta, errors });
+      }
+
       // Secondary comparison: react-native-view-shot with a JS `opacity: 0` exclusion.
       let baseline: unknown = 'not available on this platform';
       if (baselineSample && viewShot) {
@@ -675,6 +789,36 @@ export default function App() {
         emit('SPIKE_BASELINE', baseline);
       }
 
+      // Blur and Liquid Glass fixture. A host script takes a screenshot at each `SPIKE_FX_SHOT` line.
+      const fxRecs: FxRec[] = [];
+      for (let page = 0; page < FX_PAGES.length; page += 1) {
+        const defs = FX_PAGES[page]!;
+        const loadedPage = new Promise<void>((resolve) => {
+          fxLoad.current = { left: imagesOnPage(defs), done: resolve };
+        });
+        setFxPage(page);
+        const loadState = await Promise.race([loadedPage.then(() => 'loaded'), sleep(5000).then(() => 'TIMEOUT')]);
+        fxLoad.current = null;
+        await sleep(1500);
+        emit('SPIKE_FX_PAGE', { page, roots: defs.map((def) => def.id), images: loadState, glassAvailable });
+        fxRecs.push(...(await runEffectsPage({ adapter, defs, refs: fxRefs, tolerance: TOLERANCE, emit })));
+        if (page === 0) {
+          await runEffectsLatency({ adapter, defs, refs: fxRefs, emit, count: 30 });
+        }
+        await sleep(500);
+        emit('SPIKE_FX_SHOT', { page });
+        await sleep(6000);
+      }
+      setFxPage(null);
+      const fxJudged = fxRecs.filter((rec) => rec.pass !== null);
+      const fx = {
+        roots: FX_ROOTS.map((def) => def.id),
+        cases: fxJudged.length,
+        passed: fxJudged.filter((rec) => rec.pass).length,
+        failed: fxJudged.filter((rec) => !rec.pass).map((rec) => rec.id),
+        observations: fxRecs.length - fxJudged.length,
+      };
+
       const judged = all.filter((rec) => rec.pass !== null);
       const summary = {
         ...environment,
@@ -685,17 +829,18 @@ export default function App() {
         maxPointDelta: Math.max(0, ...judged.filter((rec) => rec.pass).map((rec) => rec.pointDelta ?? 0)),
         latency,
         baseline,
+        fx,
       };
       emit('SPIKE_RESULT', summary);
       (globalThis as { __SPIKE__?: unknown }).__SPIKE__ = { summary, records: all };
-      setStatus(`Done: ${summary.passed}/${summary.cases} pass`);
+      setStatus(`Done: ${summary.passed}/${summary.cases} pass, effects ${fx.passed}/${fx.cases} pass`);
     } catch (error) {
       emit('SPIKE_RESULT', { fatal: String(error), stack: (error as Error)?.stack });
       setStatus(`Suite failure: ${String(error)}`);
     } finally {
       running.current = false;
     }
-  }, [adapter, baselineSample, fgRefs, moveTo, rootRefs, runCase, sampleContrast, viewShot]);
+  }, [adapter, baselineSample, fgRefs, fxRefs, moveTo, rootRefs, runCase, sampleContrast, viewShot]);
 
   const autoRun = useRef(false);
   useEffect(() => {
@@ -728,6 +873,14 @@ export default function App() {
   const movable = PRESETS[preset] as { left: number; top: number; transform?: ViewStyle['transform'] };
   const text = (id: FgId) => colors[id] ?? 'gray';
 
+  if (fxPage !== null) {
+    return (
+      <View style={styles.screen}>
+        <EffectsPage defs={FX_PAGES[fxPage]!} refs={fxRefs} onLoad={onFxLoad} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -747,7 +900,7 @@ export default function App() {
             />
           </View>
           <View style={styles.side}>
-            <View style={[styles.marker, marker && { backgroundColor: marker === 'primary' ? '#00ffc8' : '#ffc800' }]} />
+            <View style={[styles.marker, marker !== null && { backgroundColor: MARKER_COLORS[marker] }]} />
             <Animated.View style={[styles.pulse, { opacity: pulse }]} />
           </View>
         </View>
@@ -815,6 +968,22 @@ export default function App() {
           <View ref={rootRefs.zero} collapsable={false} style={styles.zeroRoot}>
             <Fg fgRef={fgRefs.zero} style={{ left: 0, top: 0 }} textColor="gray" />
           </View>
+        </View>
+
+        {/* Roots with a transform on the root itself. The left half is white. The right half is black. */}
+        <View style={styles.row}>
+          {(
+            [
+              ['rootTranslate', [{ translateX: 20 }]],
+              ['rootScale', [{ scale: 0.5 }]],
+              ['rootRotate', [{ rotate: '180deg' }]],
+            ] as const
+          ).map(([id, transform]) => (
+            <View key={id} ref={rootRefs[id]} collapsable={false} style={[styles.transformRoot, { transform }]}>
+              <View style={styles.transformRootHalf} />
+              <Fg fgRef={fgRefs[id]} style={styles.transformRootFg} textColor={text(id)} />
+            </View>
+          ))}
         </View>
 
         {Platform.OS === 'web' && crossUri ? (
@@ -886,6 +1055,16 @@ const styles = StyleSheet.create({
   opacityRoot: { width: 100, height: 40, backgroundColor: css(WHITE), opacity: 0.5 },
   opacityRootPlain: { width: 100, height: 40, backgroundColor: css(WHITE) },
   flatRoot: { width: 100, height: 40 },
+  transformRoot: { width: ROOT_TRANSFORM.width, height: ROOT_TRANSFORM.height, backgroundColor: css(WHITE) },
+  transformRootHalf: {
+    position: 'absolute',
+    left: ROOT_TRANSFORM.split,
+    top: 0,
+    width: ROOT_TRANSFORM.width - ROOT_TRANSFORM.split,
+    height: ROOT_TRANSFORM.height,
+    backgroundColor: '#000000',
+  },
+  transformRootFg: ROOT_TRANSFORM.fg,
   zeroRoot: { width: 0, height: 0 },
   table: { gap: 1 },
   cell: { fontSize: 10, fontFamily: Platform.select({ ios: 'Menlo', default: 'monospace' }) },

@@ -78,7 +78,13 @@ export const FOREGROUND = { width: 60, height: 30 };
 export interface Preset {
   readonly left: number;
   readonly top: number;
-  readonly transform?: readonly ({ translateX: number } | { scale: number } | { rotate: string })[];
+  readonly transform?: readonly (
+    | { translateX: number }
+    | { scale: number }
+    | { rotate: string }
+    | { perspective: number }
+    | { rotateY: string }
+  )[];
 }
 
 /** Positions of the movable foreground in root A. */
@@ -96,6 +102,34 @@ export const PRESETS = {
   scale: { left: 100, top: 40, transform: [{ scale: 2 }] },
   rotate: { left: 120, top: 40, transform: [{ rotate: '90deg' }] },
   'over-child': { left: 100, top: 275 },
+  perspective: { left: 100, top: 40, transform: [{ perspective: 500 }, { rotateY: '30deg' }] },
 } satisfies Record<string, Preset>;
 
 export type PresetId = keyof typeof PRESETS;
+
+// Roots with a transform on the capture root itself: 100x40, left half white, right half black.
+export const ROOT_TRANSFORM = { width: 100, height: 40, split: 50, fg: { left: 55, top: 5, width: 30, height: 20 } };
+
+// Effect roots (blur and glass): `fixture.png` stretched to 180x180. Each quadrant is 90x90.
+export const FX = {
+  size: 180,
+  panel: { left: 20, top: 20, width: 140, height: 140, radius: 16 },
+  label: { left: 60, top: 80, width: 60, height: 20 },
+};
+
+/** Sample points in capture-root units. No point is below the label. */
+export const FX_POINTS = [
+  { id: 'flat-white', x: 45, y: 45, underPanel: true },
+  { id: 'flat-black', x: 135, y: 45, underPanel: true },
+  { id: 'flat-orange', x: 45, y: 135, underPanel: true },
+  { id: 'flat-blue', x: 135, y: 135, underPanel: true },
+  // 4 units from the white and black boundary. A blur mixes the two colors here.
+  { id: 'edge', x: 86, y: 45, underPanel: true },
+  // Not below the panel.
+  { id: 'outside', x: 8, y: 8, underPanel: false },
+] as const;
+
+export function expectedFx(p: Pt): Rgba8 {
+  const half = FX.size / 2;
+  return p.y < half ? (p.x < half ? WHITE : BLACK) : p.x < half ? ORANGE : BLUE;
+}

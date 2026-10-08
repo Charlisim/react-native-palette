@@ -3,14 +3,17 @@ import { PaletteError } from 'palette-react-native/src/errors';
 import type { ViewRef } from 'palette-react-native/src/types';
 
 import { withAbort } from './abort';
-import type { CaptureDetail, SamplerMode, SpikeCaptureAdapter } from './PaletteSampler.types';
+import type { CaptureDetail, EffectHit, SamplerMode, SpikeCaptureAdapter } from './PaletteSampler.types';
 
 // No top-level browser access and no top-level import of the DOM renderer. This file is safe for SSR.
 
 function elementOf(view: ViewRef): HTMLElement {
   const element = view.current;
   if (typeof HTMLElement === 'undefined' || !(element instanceof HTMLElement) || !element.isConnected) {
-    throw new PaletteError('INVALID_VIEW_RELATIONSHIP', 'A view reference is not a connected DOM element.');
+    throw new PaletteError(
+      'INVALID_VIEW_RELATIONSHIP',
+      'A view reference is not a connected DOM element. On iOS and Android, set collapsable={false} on the view.',
+    );
   }
   return element;
 }
@@ -76,6 +79,38 @@ function assertSameOriginImages(root: HTMLElement, foreground: HTMLElement): voi
   }
 }
 
+// The DOM renderer does not draw `backdrop-filter` or `filter`. List the elements that have one.
+function collectEffects(root: HTMLElement, foreground: HTMLElement, clientX: number, clientY: number): EffectHit[] {
+  const hits: EffectHit[] = [];
+  const active = (value: string | undefined) => value !== undefined && value !== '' && value !== 'none';
+  const visit = (element: Element) => {
+    if (element === foreground) {
+      return;
+    }
+    const style = getComputedStyle(element);
+    if (style.display === 'none') {
+      return;
+    }
+    const backdrop =
+      style.backdropFilter ?? (style as unknown as { webkitBackdropFilter?: string }).webkitBackdropFilter;
+    const names = [
+      active(backdrop) ? `backdrop-filter: ${backdrop}` : undefined,
+      active(style.filter) ? `filter: ${style.filter}` : undefined,
+    ].filter((name): name is string => name !== undefined);
+    if (names.length > 0) {
+      const rect = element.getBoundingClientRect();
+      hits.push({
+        name: names.join('; '),
+        containsPoint:
+          clientX >= rect.left && clientX < rect.right && clientY >= rect.top && clientY < rect.bottom,
+      });
+    }
+    Array.from(element.children).forEach(visit);
+  };
+  visit(root);
+  return hits;
+}
+
 /** Web backend: `html2canvas-pro` DOM render with `ignoreElements` and a one-pixel read. */
 export function createCaptureAdapter(): SpikeCaptureAdapter {
   let mode: SamplerMode = 'normal';
@@ -104,6 +139,15 @@ export function createCaptureAdapter(): SpikeCaptureAdapter {
     }
     if (requestMode !== 'skipOriginCheck') {
       assertSameOriginImages(root, foreground);
+    }
+
+    const effects = collectEffects(root, foreground, rootRect.left + captureX, rootRect.top + captureY);
+    const hit = requestMode === 'skipEffectCheck' ? undefined : effects.find((effect) => effect.containsPoint);
+    if (hit) {
+      throw new PaletteError(
+        'UNSUPPORTED_CONTENT',
+        `An element with an effect (${hit.name}) covers the sample point. The capture cannot render this effect.`,
+      );
     }
 
     // Rounding rule: the physical pixel that contains the logical point.
@@ -136,6 +180,10 @@ export function createCaptureAdapter(): SpikeCaptureAdapter {
         logging: false,
         // The filter runs on the clone pass. The live DOM does not change.
         ignoreElements: (element) => requestMode !== 'skipExclusion' && element === foreground,
+        // The opacity of the capture root is not part of the sample. Only the clone changes.
+        onclone: (_document, clonedRoot) => {
+          clonedRoot.style.opacity = '1';
+        },
       });
       const context = canvas.getContext('2d');
       if (!context) {
@@ -168,6 +216,7 @@ export function createCaptureAdapter(): SpikeCaptureAdapter {
       captureMs: performance.now() - started,
       rootMutations: mutations.length,
       rootMutationKinds: mutations,
+      effects,
     };
     // `getImageData` returns straight alpha in the canvas color space (sRGB by default).
     return {
@@ -190,5 +239,9 @@ export function createCaptureAdapter(): SpikeCaptureAdapter {
     lastDetail: () => detail,
     capture: (request) => withAbort(request.signal, run(request, mode)),
     inspect: async (view) => snapshot(elementOf(view)),
+    async locate(view) {
+      const rect = elementOf(view).getBoundingClientRect();
+      return { x: rect.left, y: rect.top, width: rect.width, height: rect.height, scale: window.devicePixelRatio || 1 };
+    },
   };
 }

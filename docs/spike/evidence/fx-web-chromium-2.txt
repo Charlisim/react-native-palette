@@ -1,0 +1,129 @@
+SPIKE_FX_PAGE {"page":0,"roots":["control","blur-light-50","blur-dark-100","blur-default-20","rn-filter-blur","glass-regular"],"images":"loaded","glassAvailable":false}
+SPIKE_FX_ROOT {"root":"control","kind":"control","role":"background","effectActive":false,"rect":{"x":8,"y":60,"width":180,"height":180,"scale":2}}
+SPIKE_FX_ROOT {"root":"blur-light-50","kind":"blur","role":"background","effectActive":true,"rect":{"x":196,"y":60,"width":180,"height":180,"scale":2}}
+SPIKE_FX_ROOT {"root":"blur-dark-100","kind":"blur","role":"background","effectActive":true,"rect":{"x":8,"y":260,"width":180,"height":180,"scale":2}}
+SPIKE_FX_ROOT {"root":"blur-default-20","kind":"blur","role":"background","effectActive":true,"rect":{"x":196,"y":260,"width":180,"height":180,"scale":2}}
+SPIKE_FX_ROOT {"root":"rn-filter-blur","kind":"rn-filter","role":"background","effectActive":true,"rect":{"x":8,"y":460,"width":180,"height":180,"scale":2}}
+SPIKE_FX_ROOT {"root":"glass-regular","kind":"glass","role":"background","effectActive":false,"rect":{"x":196,"y":460,"width":180,"height":180,"scale":2}}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"normal (point not below the effect)","n":30,"errors":0,"p50":58,"p95":59.4,"nativeP50":58,"nativeP95":59.4}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"skipEffectCheck (point below the effect)","n":30,"errors":0,"p50":58.2,"p95":60.6,"nativeP50":58.2,"nativeP95":60.6}
+SPIKE_FX_PAGE {"page":1,"roots":["fg-blur-light-50","fg-glass-regular"],"images":"loaded","glassAvailable":false}
+SPIKE_FX_ROOT {"root":"fg-blur-light-50","kind":"blur","role":"foreground","effectActive":true,"rect":{"x":8,"y":60,"width":180,"height":180,"scale":2}}
+SPIKE_FX_ROOT {"root":"fg-glass-regular","kind":"glass","role":"foreground","effectActive":false,"rect":{"x":196,"y":60,"width":180,"height":180,"scale":2}}
+SCREENSHOT page 0: web-chromium-2-fx-0.png 840x1800
+PASS | control/flat-white/normal | active false | exp 127.5,127.5,127.5,255 | sampled 127,127,127,255 | screen 127,127,127 @106,210 | range7x7 0 | sampled-screen 0 | 57.5 ms | -
+PASS | control/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @286,210 | range7x7 0 | sampled-screen 0 | 56.4 ms | -
+PASS | control/flat-orange/normal | active false | exp 127.5,74.5,0,255 | sampled 127,74,0,255 | screen 127,74,0 @106,390 | range7x7 0 | sampled-screen 0 | 55.8 ms | -
+PASS | control/flat-blue/normal | active false | exp 0,0,127.5,255 | sampled 0,0,127,255 | screen 0,0,127 @286,390 | range7x7 0 | sampled-screen 0 | 56.6 ms | -
+PASS | control/edge/normal | active false | exp 127.5,127.5,127.5,255 | sampled 127,127,127,255 | screen 127,127,127 @188,210 | range7x7 0 | sampled-screen 0 | 57.1 ms | -
+PASS | control/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @32,136 | range7x7 0 | sampled-screen 0 | 56.7 ms | -
+PASS | blur-light-50/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 253,253,253 @482,210 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-light-50/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 97,97,97 @662,210 | range7x7 0 | sampled-screen - | 0.2 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-light-50/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 253,183,97 @482,390 | range7x7 0 | sampled-screen - | 0.2 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-light-50/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 97,97,253 @662,390 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-light-50/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 197.3,197.3,197.3 @564,210 | range7x7 9 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-light-50/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @408,136 | range7x7 0 | sampled-screen 0 | 57.3 ms | backdrop-filter: saturate(1.8) blur(10px)
+PASS | blur-dark-100/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 76,76,76 @106,610 | range7x7 1 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(20px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-dark-100/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 20,20,20 @286,610 | range7x7 1 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(20px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-dark-100/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 76,51,20 @106,790 | range7x7 1 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(20px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-dark-100/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 20,20,76 @286,790 | range7x7 1 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(20px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-dark-100/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 52.3,52.3,52.3 @188,610 | range7x7 2 | sampled-screen - | 0 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(20px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-dark-100/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @32,536 | range7x7 0 | sampled-screen 0 | 63.8 ms | backdrop-filter: saturate(1.8) blur(20px)
+PASS | blur-default-20/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,255,255 @482,610 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(4px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-default-20/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 15,15,15 @662,610 | range7x7 0 | sampled-screen - | 0 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(4px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-default-20/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,147,15 @482,790 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(4px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-default-20/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 15,15,255 @662,790 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(4px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-default-20/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 215,215,215 @564,610 | range7x7 28 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(4px)) covers the sample point. The capture cannot render this effect.
+PASS | blur-default-20/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @408,536 | range7x7 0 | sampled-screen 0 | 63 ms | backdrop-filter: saturate(1.8) blur(4px)
+PASS | rn-filter-blur/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,255,255 @106,1010 | range7x7 0 | sampled-screen - | 0.2 ms | - | An element with an effect (filter: blur(6px)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 0,0,0 @286,1010 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (filter: blur(6px)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,149,0 @106,1190 | range7x7 0 | sampled-screen - | 0.2 ms | - | An element with an effect (filter: blur(6px)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 0,0,255 @286,1190 | range7x7 0 | sampled-screen - | 0.2 ms | - | An element with an effect (filter: blur(6px)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 187,187,187 @188,1010 | range7x7 23 | sampled-screen - | 0.2 ms | - | An element with an effect (filter: blur(6px)) covers the sample point. The capture cannot render this effect.
+PASS | rn-filter-blur/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @32,936 | range7x7 0 | sampled-screen 0 | 55.7 ms | filter: blur(6px)
+PASS | glass-regular/flat-white/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @482,1010 | range7x7 0 | sampled-screen 0 | 56.1 ms | -
+PASS | glass-regular/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @662,1010 | range7x7 0 | sampled-screen 0 | 57 ms | -
+PASS | glass-regular/flat-orange/normal | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @482,1190 | range7x7 0 | sampled-screen 0 | 56.7 ms | -
+PASS | glass-regular/flat-blue/normal | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @662,1190 | range7x7 0 | sampled-screen 0 | 56.5 ms | -
+PASS | glass-regular/edge/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @564,1010 | range7x7 0 | sampled-screen 0 | 60.3 ms | -
+PASS | glass-regular/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @408,936 | range7x7 0 | sampled-screen 0 | 58.8 ms | -
+SCREENSHOT page 1: web-chromium-2-fx-1.png 840x1800
+PASS | fg-blur-light-50/flat-white/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 253,253,253 @106,210 | range7x7 0 | sampled-screen 2 | 204.2 ms | -
+PASS | fg-blur-light-50/flat-white/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 253,253,253 @106,210 | range7x7 0 | sampled-screen - | 1.5 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | fg-blur-light-50/flat-black/normal | active true | exp 0,0,0,255 | sampled 0,0,0,255 | screen 97,97,97 @286,210 | range7x7 0 | sampled-screen 97 | 57.3 ms | -
+PASS | fg-blur-light-50/flat-black/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 97,97,97 @286,210 | range7x7 0 | sampled-screen - | 0.2 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | fg-blur-light-50/flat-orange/normal | active true | exp 255,149,0,255 | sampled 255,149,0,255 | screen 253,183,97 @106,390 | range7x7 0 | sampled-screen 97 | 58.4 ms | -
+PASS | fg-blur-light-50/flat-orange/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 253,183,97 @106,390 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | fg-blur-light-50/flat-blue/normal | active true | exp 0,0,255,255 | sampled 0,0,255,255 | screen 97,97,253 @286,390 | range7x7 0 | sampled-screen 97 | 56.5 ms | -
+PASS | fg-blur-light-50/flat-blue/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 97,97,253 @286,390 | range7x7 0 | sampled-screen - | 0.1 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | fg-blur-light-50/edge/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 197.3,197.3,197.3 @188,210 | range7x7 9 | sampled-screen 57.7 | 58.4 ms | -
+PASS | fg-blur-light-50/edge/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 197.3,197.3,197.3 @188,210 | range7x7 9 | sampled-screen - | 0 ms | - | An element with an effect (backdrop-filter: saturate(1.8) blur(10px)) covers the sample point. The capture cannot render this effect.
+PASS | fg-blur-light-50/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @32,136 | range7x7 0 | sampled-screen 0 | 56.7 ms | -
+PASS | fg-blur-light-50/outside/inner | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @32,136 | range7x7 0 | sampled-screen 0 | 60.9 ms | backdrop-filter: saturate(1.8) blur(10px)
+PASS | fg-glass-regular/flat-white/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @482,210 | range7x7 0 | sampled-screen 0 | 59.9 ms | -
+PASS | fg-glass-regular/flat-white/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @482,210 | range7x7 0 | sampled-screen 0 | 60.1 ms | -
+PASS | fg-glass-regular/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @662,210 | range7x7 0 | sampled-screen 0 | 59.4 ms | -
+PASS | fg-glass-regular/flat-black/inner | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @662,210 | range7x7 0 | sampled-screen 0 | 57.9 ms | -
+PASS | fg-glass-regular/flat-orange/normal | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @482,390 | range7x7 0 | sampled-screen 0 | 56.6 ms | -
+PASS | fg-glass-regular/flat-orange/inner | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @482,390 | range7x7 0 | sampled-screen 0 | 57.7 ms | -
+PASS | fg-glass-regular/flat-blue/normal | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @662,390 | range7x7 0 | sampled-screen 0 | 56.7 ms | -
+PASS | fg-glass-regular/flat-blue/inner | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @662,390 | range7x7 0 | sampled-screen 0 | 57.5 ms | -
+PASS | fg-glass-regular/edge/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @564,210 | range7x7 0 | sampled-screen 0 | 56.8 ms | -
+PASS | fg-glass-regular/edge/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @564,210 | range7x7 0 | sampled-screen 0 | 57.1 ms | -
+PASS | fg-glass-regular/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @408,136 | range7x7 0 | sampled-screen 0 | 57.4 ms | -
+PASS | fg-glass-regular/outside/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @408,136 | range7x7 0 | sampled-screen 0 | 56.7 ms | -
+DETECTED | blur-light-50 | backdrop-filter: saturate(1.8) blur(10px)
+DETECTED | blur-dark-100 | backdrop-filter: saturate(1.8) blur(20px)
+DETECTED | blur-default-20 | backdrop-filter: saturate(1.8) blur(4px)
+DETECTED | rn-filter-blur | filter: blur(6px)
+DETECTED | fg-blur-light-50 | backdrop-filter: saturate(1.8) blur(10px)
+TABLE | root | point | screen RGB | range7x7 | raw | normal | inner-raw | inner
+TABLE | control | flat-white | 127,127,127 | 0 | 127,127,127,255 (0) | 127,127,127,255 (0) | - | -
+TABLE | control | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | 0,0,0,255 (0) | - | -
+TABLE | control | flat-orange | 127,74,0 | 0 | 127,74,0,255 (0) | 127,74,0,255 (0) | - | -
+TABLE | control | flat-blue | 0,0,127 | 0 | 0,0,127,255 (0) | 0,0,127,255 (0) | - | -
+TABLE | control | edge | 127,127,127 | 0 | 127,127,127,255 (0) | 127,127,127,255 (0) | - | -
+TABLE | control | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | blur-light-50 | flat-white | 253,253,253 | 0 | 253,253,253,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-light-50 | flat-black | 97,97,97 | 0 | 97,97,97,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-light-50 | flat-orange | 253,183,97 | 0 | 253,188,97,255 (5) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-light-50 | flat-blue | 97,97,253 | 0 | 97,97,253,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-light-50 | edge | 197.3,197.3,197.3 | 9 | 253,253,253,255 (55.7) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-light-50 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | blur-dark-100 | flat-white | 76,76,76 | 1 | 76,76,76,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-dark-100 | flat-black | 20,20,20 | 1 | 20,20,20,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-dark-100 | flat-orange | 76,51,20 | 1 | 76,53,20,255 (2) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-dark-100 | flat-blue | 20,20,76 | 1 | 20,20,76,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-dark-100 | edge | 52.3,52.3,52.3 | 2 | 76,76,76,255 (23.7) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-dark-100 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | blur-default-20 | flat-white | 255,255,255 | 0 | 255,255,255,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-default-20 | flat-black | 15,15,15 | 0 | 15,15,15,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-default-20 | flat-orange | 255,147,15 | 0 | 255,155,15,255 (8) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-default-20 | flat-blue | 15,15,255 | 0 | 15,15,255,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-default-20 | edge | 215,215,215 | 28 | 255,255,255,255 (40) | UNSUPPORTED_CONTENT | - | -
+TABLE | blur-default-20 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | rn-filter-blur | flat-white | 255,255,255 | 0 | 255,255,255,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | rn-filter-blur | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | rn-filter-blur | flat-orange | 255,149,0 | 0 | 255,149,0,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | rn-filter-blur | flat-blue | 0,0,255 | 0 | 0,0,255,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | rn-filter-blur | edge | 187,187,187 | 23 | 187,187,187,255 (0) | UNSUPPORTED_CONTENT | - | -
+TABLE | rn-filter-blur | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | glass-regular | flat-white | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | glass-regular | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | 0,0,0,255 (0) | - | -
+TABLE | glass-regular | flat-orange | 255,149,0 | 0 | 255,149,0,255 (0) | 255,149,0,255 (0) | - | -
+TABLE | glass-regular | flat-blue | 0,0,255 | 0 | 0,0,255,255 (0) | 0,0,255,255 (0) | - | -
+TABLE | glass-regular | edge | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | glass-regular | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | - | -
+TABLE | fg-blur-light-50 | flat-white | 253,253,253 | 0 | - | 255,255,255,255 (2) | 253,253,253,255 (0) | UNSUPPORTED_CONTENT
+TABLE | fg-blur-light-50 | flat-black | 97,97,97 | 0 | - | 0,0,0,255 (97) | 97,97,97,255 (0) | UNSUPPORTED_CONTENT
+TABLE | fg-blur-light-50 | flat-orange | 253,183,97 | 0 | - | 255,149,0,255 (97) | 253,188,97,255 (5) | UNSUPPORTED_CONTENT
+TABLE | fg-blur-light-50 | flat-blue | 97,97,253 | 0 | - | 0,0,255,255 (97) | 97,97,253,255 (0) | UNSUPPORTED_CONTENT
+TABLE | fg-blur-light-50 | edge | 197.3,197.3,197.3 | 9 | - | 255,255,255,255 (57.7) | 253,253,253,255 (55.7) | UNSUPPORTED_CONTENT
+TABLE | fg-blur-light-50 | outside | 255,255,255 | 0 | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | flat-white | 255,255,255 | 0 | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | flat-black | 0,0,0 | 0 | - | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0)
+TABLE | fg-glass-regular | flat-orange | 255,149,0 | 0 | - | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0)
+TABLE | fg-glass-regular | flat-blue | 0,0,255 | 0 | - | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0)
+TABLE | fg-glass-regular | edge | 255,255,255 | 0 | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | outside | 255,255,255 | 0 | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+FX_SUMMARY judged 60 passed 60 observations 48

@@ -1,6 +1,7 @@
 # Sampling spike (delivery step 1)
 
 **Status: complete on simulators and one emulator. Physical devices are not tested.**
+Delivery step 2 locked the contract and ran the suite again. Refer to "Step 2 addendum" at the end of this file.
 The report is below. The fixture application is in [example/](../../example/README.md).
 The source is [HANDOFF.md](../HANDOFF.md), sections "Delivery sequence" and "Exact next action".
 
@@ -378,3 +379,58 @@ These items are inputs from the spike. They are not locked decisions.
 - The first fixture version put one sample point on a second foreground. The sampler returned magenta there, which was correct. The fixture moved the second foreground and added the case `other-foreground-stays`.
 - The iOS transform check first rejected `scale` because React Native also scales the z axis. The check now rejects only perspective.
 - Not done: physical devices, release builds, memory growth, JS and UI block profiles, Firefox, VoiceOver and TalkBack, theme and image-change refresh (acceptance row 10), content that the render cannot draw, TurboModule comparison.
+
+---
+
+# Step 2 addendum (8 October 2026)
+
+The report above describes the spike runs of 7 October 2026. It is not changed.
+Delivery step 2 changed the spike adapters to follow [Contract v1](../sampling-contract.md) and ran the suite again.
+The files in `evidence/` now contain the step 2 runs. Thus the case counts in those files differ from the tables above.
+
+Changes to the adapters and the fixture:
+
+- The opacity of the capture root is not in the sample on the three platforms. iOS sets the root layer opacity to 1 in the capture transaction and restores it. Web sets `opacity: 1` on the root of the clone. Android did not include it.
+- The suite tolerance is 1 for each 8-bit channel.
+- New cases: `transform-perspective`, `error-invalid-backdrop`, `error-flattened-root` (with a message check), `root-opacity-excluded`.
+- New observations: the transform of the capture root itself, and the experimental compositor modes.
+- Effect detection and the blur and Liquid Glass fixture. Refer to [blur-and-glass.md](blur-and-glass.md).
+
+Results at tolerance 1 (simulators, emulator, headless browsers):
+
+| Platform | Suite | Effect cases | Maximum channel difference |
+| --- | --- | --- | --- |
+| iOS 18.4, iPhone 16 simulator | 35 of 35 | 60 of 60 | 0.5 |
+| iOS 26.5, iPhone 17 simulator | 35 of 35 | 60 of 60 | 0.5 |
+| Android 15 (API 35) emulator | 36 of 36 | 61 of 61 | 0.5 |
+| Chromium 156, device pixel ratio 1 and 2 | 35 of 35 | 60 of 60 | 0.5 |
+| WebKit 27.2, device pixel ratio 2, two runs | 33 of 35 and 33 of 35 | 60 of 60 | - |
+
+WebKit failures: `image-black` and `explicit-point` in one run, `image-black` and `transform-translate` in the other run. Each wrong sample was 0, 0, 0, 0.
+
+Flash check after the root opacity change (`evidence/flash-check.jsonl`, phase `primary`):
+
+| Platform | Frames in the loop | Foreground pixel count |
+| --- | --- | --- |
+| iOS 18.4 simulator | 979 | 7545 in each frame |
+| iOS 26.5 simulator | 979 | 8044 in each frame |
+| Android emulator | 303 | 13476 or 13477 in each frame |
+
+The baseline phase (view-shot with a JS exclusion) shows the foreground absent in 199 of 300, 223 of 307, and 216 of 296 frames. Thus the check can detect a flash.
+
+Transform of the capture root itself (observation, root 100 x 40, foreground at (55, 5)):
+
+| Root transform | iOS 18.4 and 26.5 | Android | Chromium and WebKit |
+| --- | --- | --- | --- |
+| `translateX: 20` | `capturePoint` (55, 5), root-local pixel | `capturePoint` (54.857, 4.952), root-local pixel | `capturePoint` (55, 5) |
+| `scale: 0.5` | `capturePoint` (55, 5), root-local pixel | `capturePoint` (54.857, 4.952), root-local pixel | `capturePoint` (27.5, 2.5) |
+| `rotate: 180deg` | `capturePoint` (55, 5), root-local pixel | `capturePoint` (54.857, 4.952), root-local pixel | `capturePoint` (15, 15) |
+
+The native adapters do not apply the transform of the root. The web adapter maps with screen rectangles.
+The platforms disagree for scale and rotate. Contract v1 does not define this case. Each platform sampled 0, 0, 0, 255 in this fixture.
+
+Limitations that step 2 changed from "assumed" to "observed":
+
+- iOS `layer.render(in:)` draws the tint of a `UIBlurEffect` and no blur. It draws nothing for a `UIGlassEffect`.
+- Android software draw does not apply a `RenderEffect`.
+- The perspective rejection ran on iOS, Android, and web.

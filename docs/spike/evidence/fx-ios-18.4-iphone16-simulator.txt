@@ -1,0 +1,152 @@
+SPIKE_FX_PAGE {"page":0,"roots":["control","blur-light-50","blur-dark-100","blur-default-20","glass-regular","glass-clear"],"images":"loaded","glassAvailable":false}
+SPIKE_FX_ROOT {"root":"control","kind":"control","role":"background","effectActive":false,"rect":{"y":60,"scale":3,"width":180,"height":180,"x":8}}
+SPIKE_FX_ROOT {"root":"blur-light-50","kind":"blur","role":"background","effectActive":true,"rect":{"width":180,"height":180,"x":196,"scale":3,"y":60}}
+SPIKE_FX_ROOT {"root":"blur-dark-100","kind":"blur","role":"background","effectActive":true,"rect":{"width":180,"scale":3,"x":8,"height":180,"y":260}}
+SPIKE_FX_ROOT {"root":"blur-default-20","kind":"blur","role":"background","effectActive":true,"rect":{"scale":3,"y":260,"x":196,"height":180,"width":180}}
+SPIKE_FX_ROOT {"root":"glass-regular","kind":"glass","role":"background","effectActive":false,"rect":{"x":8,"scale":3,"y":460,"height":180,"width":180}}
+SPIKE_FX_ROOT {"root":"glass-clear","kind":"glass","role":"background","effectActive":false,"rect":{"height":180,"x":196,"y":460,"width":180,"scale":3}}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"normal (point not below the effect)","n":30,"errors":0,"p50":0.308,"p95":0.522,"nativeP50":0.197,"nativeP95":0.389}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"skipEffectCheck (point below the effect)","n":30,"errors":0,"p50":0.284,"p95":0.391,"nativeP50":0.192,"nativeP95":0.298}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"dhRootFalse","n":30,"errors":0,"p50":1.211,"p95":3.747,"nativeP50":1.079,"nativeP95":3.534}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"dhRootTrue","n":30,"errors":0,"p50":8.992,"p95":17.01,"nativeP50":8.253,"nativeP95":16.33}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"dhWindowFalse","n":30,"errors":0,"p50":3.612,"p95":5.413,"nativeP50":3.229,"nativeP95":4.936}
+SPIKE_FX_LATENCY {"root":"blur-light-50","mode":"dhWindowTrue","n":30,"errors":0,"p50":11.399,"p95":19.013,"nativeP50":10.83,"nativeP95":18.578}
+SPIKE_FX_PAGE {"page":1,"roots":["fg-blur-light-50","fg-glass-regular"],"images":"loaded","glassAvailable":false}
+SPIKE_FX_ROOT {"root":"fg-blur-light-50","kind":"blur","role":"foreground","effectActive":true,"rect":{"scale":3,"y":60,"x":8,"height":180,"width":180}}
+SPIKE_FX_ROOT {"root":"fg-glass-regular","kind":"glass","role":"foreground","effectActive":false,"rect":{"width":180,"y":60,"height":180,"scale":3,"x":196}}
+SCREENSHOT page 0: ios18-fx-0.png 1179x2556
+PASS | control/flat-white/normal | active false | exp 127.5,127.5,127.5,255 | sampled 127,127,127,255 | screen 127,127,127 @159,315 | range7x7 0 | sampled-screen 0 | 0.648 ms | -
+PASS | control/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @429,315 | range7x7 0 | sampled-screen 0 | 0.58 ms | -
+PASS | control/flat-orange/normal | active false | exp 127.5,74.5,0,255 | sampled 127,74,0,255 | screen 127,74,0 @159,585 | range7x7 0 | sampled-screen 0 | 0.394 ms | -
+PASS | control/flat-blue/normal | active false | exp 0,0,127.5,255 | sampled 0,0,127,255 | screen 0,0,127 @429,585 | range7x7 0 | sampled-screen 0 | 0.9 ms | -
+PASS | control/edge/normal | active false | exp 127.5,127.5,127.5,255 | sampled 127,127,127,255 | screen 127,127,127 @282,315 | range7x7 0 | sampled-screen 0 | 0.356 ms | -
+PASS | control/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @48,204 | range7x7 0 | sampled-screen 0 | 0.37 ms | -
+PASS | blur-light-50/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 245,235,224.1 @723,315 | range7x7 2 | sampled-screen - | 1.025 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-light-50/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 90.7,89.7,111.8 @993,315 | range7x7 3 | sampled-screen - | 0.135 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-light-50/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,172,77 @723,585 | range7x7 1 | sampled-screen - | 0.116 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-light-50/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 86,77.3,255 @993,585 | range7x7 1 | sampled-screen - | 0.114 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-light-50/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 176.7,170.6,174 @846,315 | range7x7 3 | sampled-screen - | 0.174 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-light-50/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @612,204 | range7x7 0 | sampled-screen 0 | 0.402 ms | BlurEffectView with UIBlurEffect
+PASS | blur-dark-100/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 89,88,87.6 @159,915 | range7x7 1 | sampled-screen - | 0.218 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-dark-100/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 21,21,22 @429,915 | range7x7 1 | sampled-screen - | 0.266 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-dark-100/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 89,58,20 @159,1185 | range7x7 0 | sampled-screen - | 0.119 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-dark-100/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 20,20,89 @429,1185 | range7x7 0 | sampled-screen - | 0.125 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-dark-100/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 60.3,60,60 @282,915 | range7x7 2 | sampled-screen - | 0.168 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-dark-100/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @48,804 | range7x7 0 | sampled-screen 0 | 0.518 ms | BlurEffectView with UIBlurEffect
+PASS | blur-default-20/flat-white/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 245,235,223.7 @723,915 | range7x7 3 | sampled-screen - | 0.139 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-default-20/flat-black/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 91,89.3,111.9 @993,915 | range7x7 3 | sampled-screen - | 0.128 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-default-20/flat-orange/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,172,77 @723,1185 | range7x7 1 | sampled-screen - | 0.163 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-default-20/flat-blue/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 86,77.8,255 @993,1185 | range7x7 1 | sampled-screen - | 0.205 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-default-20/edge/normal | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 176.7,171,174 @846,915 | range7x7 3 | sampled-screen - | 0.171 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | blur-default-20/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @612,804 | range7x7 0 | sampled-screen 0 | 0.375 ms | BlurEffectView with UIBlurEffect
+PASS | glass-regular/flat-white/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @159,1515 | range7x7 0 | sampled-screen 0 | 0.592 ms | -
+PASS | glass-regular/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @429,1515 | range7x7 0 | sampled-screen 0 | 0.414 ms | -
+PASS | glass-regular/flat-orange/normal | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @159,1785 | range7x7 0 | sampled-screen 0 | 0.465 ms | -
+PASS | glass-regular/flat-blue/normal | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @429,1785 | range7x7 0 | sampled-screen 0 | 0.349 ms | -
+PASS | glass-regular/edge/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @282,1515 | range7x7 0 | sampled-screen 0 | 0.514 ms | -
+PASS | glass-regular/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @48,1404 | range7x7 0 | sampled-screen 0 | 0.32 ms | -
+PASS | glass-clear/flat-white/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @723,1515 | range7x7 0 | sampled-screen 0 | 0.301 ms | -
+PASS | glass-clear/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @993,1515 | range7x7 0 | sampled-screen 0 | 0.427 ms | -
+PASS | glass-clear/flat-orange/normal | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @723,1785 | range7x7 0 | sampled-screen 0 | 0.349 ms | -
+PASS | glass-clear/flat-blue/normal | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @993,1785 | range7x7 0 | sampled-screen 0 | 0.367 ms | -
+PASS | glass-clear/edge/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @846,1515 | range7x7 0 | sampled-screen 0 | 1.298 ms | -
+PASS | glass-clear/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @612,1404 | range7x7 0 | sampled-screen 0 | 0.435 ms | -
+SCREENSHOT page 1: ios18-fx-1.png 1179x2556
+PASS | fg-blur-light-50/flat-white/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 244.6,234.4,223.6 @159,315 | range7x7 3 | sampled-screen 31.4 | 1.663 ms | -
+PASS | fg-blur-light-50/flat-white/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 244.6,234.4,223.6 @159,315 | range7x7 3 | sampled-screen - | 0.547 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | fg-blur-light-50/flat-black/normal | active true | exp 0,0,0,255 | sampled 0,0,0,255 | screen 90.7,88.7,111.6 @429,315 | range7x7 3 | sampled-screen 111.6 | 0.681 ms | -
+PASS | fg-blur-light-50/flat-black/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 90.7,88.7,111.6 @429,315 | range7x7 3 | sampled-screen - | 0.216 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | fg-blur-light-50/flat-orange/normal | active true | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,171.8,77 @159,585 | range7x7 2 | sampled-screen 77 | 0.749 ms | -
+PASS | fg-blur-light-50/flat-orange/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 255,171.8,77 @159,585 | range7x7 2 | sampled-screen - | 0.141 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | fg-blur-light-50/flat-blue/normal | active true | exp 0,0,255,255 | sampled 0,0,255,255 | screen 85.7,77,255 @429,585 | range7x7 2 | sampled-screen 85.7 | 0.764 ms | -
+PASS | fg-blur-light-50/flat-blue/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 85.7,77,255 @429,585 | range7x7 2 | sampled-screen - | 0.148 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | fg-blur-light-50/edge/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 176.7,170.9,174.3 @282,315 | range7x7 3 | sampled-screen 84.1 | 0.631 ms | -
+PASS | fg-blur-light-50/edge/inner | active true | exp UNSUPPORTED_CONTENT | sampled UNSUPPORTED_CONTENT | screen 176.7,170.9,174.3 @282,315 | range7x7 3 | sampled-screen - | 0.173 ms | - | FunctionCallException: Calling the 'sampleAsync' function has failed (at ExpoModulesCore/AsyncFunctionDefinition.swift:123)
+→ Caused by: PaletteSamplerException: [UNSUPPORTED_CONTENT] An effect view (BlurEffectView with UIBlurEffect) covers
+PASS | fg-blur-light-50/outside/normal | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @48,204 | range7x7 0 | sampled-screen 0 | 1.2 ms | -
+PASS | fg-blur-light-50/outside/inner | active true | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @48,204 | range7x7 0 | sampled-screen 0 | 0.612 ms | BlurEffectView with UIBlurEffect
+PASS | fg-glass-regular/flat-white/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @723,315 | range7x7 0 | sampled-screen 0 | 0.891 ms | -
+PASS | fg-glass-regular/flat-white/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @723,315 | range7x7 0 | sampled-screen 0 | 0.377 ms | -
+PASS | fg-glass-regular/flat-black/normal | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @993,315 | range7x7 0 | sampled-screen 0 | 1.252 ms | -
+PASS | fg-glass-regular/flat-black/inner | active false | exp 0,0,0,255 | sampled 0,0,0,255 | screen 0,0,0 @993,315 | range7x7 0 | sampled-screen 0 | 0.291 ms | -
+PASS | fg-glass-regular/flat-orange/normal | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @723,585 | range7x7 0 | sampled-screen 0 | 1.266 ms | -
+PASS | fg-glass-regular/flat-orange/inner | active false | exp 255,149,0,255 | sampled 255,149,0,255 | screen 255,149,0 @723,585 | range7x7 0 | sampled-screen 0 | 0.374 ms | -
+PASS | fg-glass-regular/flat-blue/normal | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @993,585 | range7x7 0 | sampled-screen 0 | 1.229 ms | -
+PASS | fg-glass-regular/flat-blue/inner | active false | exp 0,0,255,255 | sampled 0,0,255,255 | screen 0,0,255 @993,585 | range7x7 0 | sampled-screen 0 | 0.862 ms | -
+PASS | fg-glass-regular/edge/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @846,315 | range7x7 0 | sampled-screen 0 | 1.227 ms | -
+PASS | fg-glass-regular/edge/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @846,315 | range7x7 0 | sampled-screen 0 | 0.716 ms | -
+PASS | fg-glass-regular/outside/normal | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @612,204 | range7x7 0 | sampled-screen 0 | 1.128 ms | -
+PASS | fg-glass-regular/outside/inner | active false | exp 255,255,255,255 | sampled 255,255,255,255 | screen 255,255,255 @612,204 | range7x7 0 | sampled-screen 0 | 0.287 ms | -
+DETECTED | blur-light-50 | BlurEffectView with UIBlurEffect
+DETECTED | blur-dark-100 | BlurEffectView with UIBlurEffect
+DETECTED | blur-default-20 | BlurEffectView with UIBlurEffect
+DETECTED | fg-blur-light-50 | BlurEffectView with UIBlurEffect
+TABLE | root | point | screen RGB | range7x7 | raw | normal | dhRootFalse | dhRootTrue | dhWindowFalse | dhWindowTrue | inner-raw | inner | inner-dhRootFalse | inner-dhRootTrue | inner-dhWindowFalse | inner-dhWindowTrue
+TABLE | control | flat-white | 127,127,127 | 0 | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | - | - | - | - | - | -
+TABLE | control | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | - | - | - | - | - | -
+TABLE | control | flat-orange | 127,74,0 | 0 | 127,74,0,255 (0) | 127,74,0,255 (0) | 127,74,0,255 (0) | 127,74,0,255 (0) | 127,74,0,255 (0) | 127,74,0,255 (0) | - | - | - | - | - | -
+TABLE | control | flat-blue | 0,0,127 | 0 | 0,0,127,255 (0) | 0,0,127,255 (0) | 0,0,127,255 (0) | 0,0,127,255 (0) | 0,0,127,255 (0) | 0,0,127,255 (0) | - | - | - | - | - | -
+TABLE | control | edge | 127,127,127 | 0 | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | 127,127,127,255 (0) | - | - | - | - | - | -
+TABLE | control | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | blur-light-50 | flat-white | 245,235,224.1 | 2 | 255,255,255,255 (30.9) | UNSUPPORTED_CONTENT | 244,234,221,255 (3.1) | 244,234,221,255 (3.1) | 245,235,224,255 (0.1) | 245,235,224,255 (0.1) | - | - | - | - | - | -
+TABLE | blur-light-50 | flat-black | 90.7,89.7,111.8 | 3 | 77,77,77,255 (34.8) | UNSUPPORTED_CONTENT | 90,89,112,255 (0.7) | 90,89,112,255 (0.7) | 91,90,112,255 (0.3) | 91,90,112,255 (0.3) | - | - | - | - | - | -
+TABLE | blur-light-50 | flat-orange | 255,172,77 | 1 | 255,181,77,255 (9) | UNSUPPORTED_CONTENT | 255,171,77,255 (1) | 255,171,77,255 (1) | 255,172,77,255 (0) | 255,172,77,255 (0) | - | - | - | - | - | -
+TABLE | blur-light-50 | flat-blue | 86,77.3,255 | 1 | 77,77,255,255 (9) | UNSUPPORTED_CONTENT | 86,77,255,255 (0.3) | 86,77,255,255 (0.3) | 86,77,255,255 (0.3) | 86,77,255,255 (0.3) | - | - | - | - | - | -
+TABLE | blur-light-50 | edge | 176.7,170.6,174 | 3 | 255,255,255,255 (84.4) | UNSUPPORTED_CONTENT | 177,170,174,255 (0.6) | 177,170,174,255 (0.6) | 177,170,174,255 (0.6) | 177,170,174,255 (0.6) | - | - | - | - | - | -
+TABLE | blur-light-50 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | blur-dark-100 | flat-white | 89,88,87.6 | 1 | 89,89,89,255 (1.4) | UNSUPPORTED_CONTENT | 89,88,87,255 (0.6) | 89,88,87,255 (0.6) | 89,88,88,255 (0.4) | 89,88,88,255 (0.4) | - | - | - | - | - | -
+TABLE | blur-dark-100 | flat-black | 21,21,22 | 1 | 20,20,20,255 (2) | UNSUPPORTED_CONTENT | 21,21,23,255 (1) | 21,21,23,255 (1) | 21,21,22,255 (0) | 21,21,22,255 (0) | - | - | - | - | - | -
+TABLE | blur-dark-100 | flat-orange | 89,58,20 | 0 | 89,60,20,255 (2) | UNSUPPORTED_CONTENT | 89,58,20,255 (0) | 89,58,20,255 (0) | 89,58,20,255 (0) | 89,58,20,255 (0) | - | - | - | - | - | -
+TABLE | blur-dark-100 | flat-blue | 20,20,89 | 0 | 20,20,89,255 (0) | UNSUPPORTED_CONTENT | 20,20,89,255 (0) | 20,20,89,255 (0) | 20,20,89,255 (0) | 20,20,89,255 (0) | - | - | - | - | - | -
+TABLE | blur-dark-100 | edge | 60.3,60,60 | 2 | 89,89,89,255 (29) | UNSUPPORTED_CONTENT | 60,60,60,255 (0.3) | 60,60,60,255 (0.3) | 60,60,60,255 (0.3) | 60,60,60,255 (0.3) | - | - | - | - | - | -
+TABLE | blur-dark-100 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | blur-default-20 | flat-white | 245,235,223.7 | 3 | 255,255,255,255 (31.3) | UNSUPPORTED_CONTENT | 244,234,221,255 (2.7) | 244,234,221,255 (2.7) | 245,235,224,255 (0.3) | 245,235,224,255 (0.3) | - | - | - | - | - | -
+TABLE | blur-default-20 | flat-black | 91,89.3,111.9 | 3 | 77,77,77,255 (34.9) | UNSUPPORTED_CONTENT | 90,89,112,255 (1) | 90,89,112,255 (1) | 91,89,112,255 (0.3) | 91,89,112,255 (0.3) | - | - | - | - | - | -
+TABLE | blur-default-20 | flat-orange | 255,172,77 | 1 | 255,181,77,255 (9) | UNSUPPORTED_CONTENT | 255,171,77,255 (1) | 255,171,77,255 (1) | 255,172,77,255 (0) | 255,172,77,255 (0) | - | - | - | - | - | -
+TABLE | blur-default-20 | flat-blue | 86,77.8,255 | 1 | 77,77,255,255 (9) | UNSUPPORTED_CONTENT | 86,77,255,255 (0.8) | 86,77,255,255 (0.8) | 86,78,255,255 (0.2) | 86,78,255,255 (0.2) | - | - | - | - | - | -
+TABLE | blur-default-20 | edge | 176.7,171,174 | 3 | 255,255,255,255 (84) | UNSUPPORTED_CONTENT | 177,170,174,255 (1) | 177,170,174,255 (1) | 177,171,174,255 (0.3) | 177,171,174,255 (0.3) | - | - | - | - | - | -
+TABLE | blur-default-20 | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-regular | flat-white | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-regular | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | - | - | - | - | - | -
+TABLE | glass-regular | flat-orange | 255,149,0 | 0 | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | - | - | - | - | - | -
+TABLE | glass-regular | flat-blue | 0,0,255 | 0 | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-regular | edge | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-regular | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-clear | flat-white | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-clear | flat-black | 0,0,0 | 0 | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | - | - | - | - | - | -
+TABLE | glass-clear | flat-orange | 255,149,0 | 0 | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | - | - | - | - | - | -
+TABLE | glass-clear | flat-blue | 0,0,255 | 0 | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-clear | edge | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | glass-clear | outside | 255,255,255 | 0 | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | - | - | - | - | - | -
+TABLE | fg-blur-light-50 | flat-white | 244.6,234.4,223.6 | 3 | - | 255,255,255,255 (31.4) | - | - | - | - | 255,255,255,255 (31.4) | UNSUPPORTED_CONTENT | 244,234,221,255 (2.6) | 244,234,221,255 (2.6) | 245,234,224,255 (0.4) | 245,234,224,255 (0.4)
+TABLE | fg-blur-light-50 | flat-black | 90.7,88.7,111.6 | 3 | - | 0,0,0,255 (111.6) | - | - | - | - | 77,77,77,255 (34.6) | UNSUPPORTED_CONTENT | 90,89,112,255 (0.7) | 90,89,112,255 (0.7) | 91,89,112,255 (0.4) | 91,89,112,255 (0.4)
+TABLE | fg-blur-light-50 | flat-orange | 255,171.8,77 | 2 | - | 255,149,0,255 (77) | - | - | - | - | 255,181,77,255 (9.2) | UNSUPPORTED_CONTENT | 255,171,77,255 (0.8) | 255,171,77,255 (0.8) | 255,172,77,255 (0.2) | 255,172,77,255 (0.2)
+TABLE | fg-blur-light-50 | flat-blue | 85.7,77,255 | 2 | - | 0,0,255,255 (85.7) | - | - | - | - | 77,77,255,255 (8.7) | UNSUPPORTED_CONTENT | 86,77,255,255 (0.3) | 86,77,255,255 (0.3) | 86,77,255,255 (0.3) | 86,77,255,255 (0.3)
+TABLE | fg-blur-light-50 | edge | 176.7,170.9,174.3 | 3 | - | 255,255,255,255 (84.1) | - | - | - | - | 255,255,255,255 (84.1) | UNSUPPORTED_CONTENT | 177,170,174,255 (0.9) | 177,170,174,255 (0.9) | 177,171,174,255 (0.3) | 177,171,174,255 (0.3)
+TABLE | fg-blur-light-50 | outside | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | - | - | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | flat-white | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | - | - | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | flat-black | 0,0,0 | 0 | - | 0,0,0,255 (0) | - | - | - | - | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0) | 0,0,0,255 (0)
+TABLE | fg-glass-regular | flat-orange | 255,149,0 | 0 | - | 255,149,0,255 (0) | - | - | - | - | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0) | 255,149,0,255 (0)
+TABLE | fg-glass-regular | flat-blue | 0,0,255 | 0 | - | 0,0,255,255 (0) | - | - | - | - | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0) | 0,0,255,255 (0)
+TABLE | fg-glass-regular | edge | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | - | - | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+TABLE | fg-glass-regular | outside | 255,255,255 | 0 | - | 255,255,255,255 (0) | - | - | - | - | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0) | 255,255,255,255 (0)
+FX_SUMMARY judged 60 passed 60 observations 240

@@ -4,7 +4,7 @@ import { sampleContrast as publicSampleContrast } from '../index';
 import { createSampleContrast } from '../sampleContrast';
 import type { AbortSignalLike, RGBA, SampleContrastOptions } from '../types';
 
-const refs = { captureRoot: { current: {} }, foreground: { current: {} } };
+const refs = { captureRoot: { current: { id: 'root' } }, foreground: { current: { id: 'foreground' } } };
 
 function fakeAdapter(rgba: RGBA) {
   const requests: CaptureRequest[] = [];
@@ -45,7 +45,10 @@ describe('sampleContrast without an adapter', () => {
 
   it('validates the input before the adapter check', async () => {
     expect(await codeOf(publicSampleContrast({ ...refs, point: { x: NaN, y: 0 } }))).toBe('INVALID_POINT');
-    expect(await codeOf(publicSampleContrast({ ...refs, backdrop: '#fff' }))).toBe('UNRESOLVED_BACKDROP');
+    expect(await codeOf(publicSampleContrast({ ...refs, backdrop: '#fff' }))).toBe('INVALID_BACKDROP');
+    expect(await codeOf(publicSampleContrast({ ...refs, foreground: { current: null } }))).toBe(
+      'INVALID_VIEW_RELATIONSHIP',
+    );
     expect(await codeOf(publicSampleContrast({ ...refs, signal: fakeSignal(true) }))).toBe('ABORTED');
   });
 });
@@ -141,9 +144,74 @@ describe('sampleContrast with a fake adapter', () => {
   it('rejects an invalid backdrop and does not call the adapter', async () => {
     const { adapter, requests } = fakeAdapter({ r: 1, g: 1, b: 1, a: 1 });
     const sampleContrast = createSampleContrast(adapter);
-    expect(await codeOf(sampleContrast({ ...refs, backdrop: '#ffffff80' }))).toBe('UNRESOLVED_BACKDROP');
-    expect(await codeOf(sampleContrast({ ...refs, backdrop: 'white' }))).toBe('UNRESOLVED_BACKDROP');
+    expect(await codeOf(sampleContrast({ ...refs, backdrop: '#ffffff80' }))).toBe('INVALID_BACKDROP');
+    expect(await codeOf(sampleContrast({ ...refs, backdrop: 'white' }))).toBe('INVALID_BACKDROP');
+    expect(await codeOf(sampleContrast({ ...refs, backdrop: '#fff' }))).toBe('INVALID_BACKDROP');
+    expect(await codeOf(sampleContrast({ ...refs, backdrop: 0xffffff as unknown as string }))).toBe(
+      'INVALID_BACKDROP',
+    );
     expect(requests).toHaveLength(0);
+  });
+
+  it('rejects an invalid backdrop for an opaque sample also', async () => {
+    const { adapter } = fakeAdapter({ r: 1, g: 1, b: 1, a: 1 });
+    expect(await codeOf(createSampleContrast(adapter)({ ...refs, backdrop: 'rgb(0,0,0)' }))).toBe(
+      'INVALID_BACKDROP',
+    );
+  });
+
+  it('keeps UNRESOLVED_BACKDROP for a translucent sample and no backdrop only', async () => {
+    const almostOpaque = fakeAdapter({ r: 1, g: 1, b: 1, a: 254 / 255 }).adapter;
+    expect(await codeOf(createSampleContrast(almostOpaque)(refs))).toBe('UNRESOLVED_BACKDROP');
+    const clear = fakeAdapter({ r: 0, g: 0, b: 0, a: 0 }).adapter;
+    expect(await codeOf(createSampleContrast(clear)(refs))).toBe('UNRESOLVED_BACKDROP');
+    const resolved = await createSampleContrast(clear)({ ...refs, backdrop: '#000000' });
+    expect(resolved.foreground).toBe('white');
+  });
+
+  it.each([
+    ['a null captureRoot value', { captureRoot: { current: null }, foreground: refs.foreground }],
+    ['an undefined foreground value', { captureRoot: refs.captureRoot, foreground: { current: undefined } }],
+    ['an absent foreground reference', { captureRoot: refs.captureRoot, foreground: undefined }],
+    ['the same view for the two references', { captureRoot: refs.captureRoot, foreground: refs.captureRoot }],
+  ])('rejects %s and does not call the adapter', async (_name, invalid) => {
+    const { adapter, requests } = fakeAdapter({ r: 1, g: 1, b: 1, a: 1 });
+    const options = invalid as unknown as SampleContrastOptions;
+    expect(await codeOf(createSampleContrast(adapter)(options))).toBe('INVALID_VIEW_RELATIONSHIP');
+    expect(requests).toHaveLength(0);
+  });
+
+  it('rejects a point that is not an object', async () => {
+    const { adapter, requests } = fakeAdapter({ r: 1, g: 1, b: 1, a: 1 });
+    const sampleContrast = createSampleContrast(adapter);
+    const point = null as unknown as SampleContrastOptions['point'];
+    expect(await codeOf(sampleContrast({ ...refs, point }))).toBe('INVALID_POINT');
+    const partial = { x: 1 } as unknown as SampleContrastOptions['point'];
+    expect(await codeOf(sampleContrast({ ...refs, point: partial }))).toBe('INVALID_POINT');
+    expect(requests).toHaveLength(0);
+  });
+
+  it('accepts a finite point outside the foreground bounds', async () => {
+    const { adapter, requests } = fakeAdapter({ r: 1, g: 1, b: 1, a: 1 });
+    const result = await createSampleContrast(adapter)({ ...refs, point: { x: -10, y: 500.5 } });
+    expect(requests[0]?.point).toEqual({ x: -10, y: 500.5 });
+    expect(result.capturePoint).toEqual({ x: 30, y: 620.5 });
+  });
+
+  it('reports the point error before the backdrop error and the reference error', async () => {
+    const options = {
+      captureRoot: { current: null },
+      foreground: refs.foreground,
+      point: { x: NaN, y: 0 },
+      backdrop: 'white',
+      signal: fakeSignal(true),
+    };
+    const sampleContrast = createSampleContrast(fakeAdapter({ r: 1, g: 1, b: 1, a: 1 }).adapter);
+    expect(await codeOf(sampleContrast(options))).toBe('INVALID_POINT');
+    expect(await codeOf(sampleContrast({ ...options, point: { x: 0, y: 0 } }))).toBe('INVALID_BACKDROP');
+    expect(await codeOf(sampleContrast({ ...options, point: undefined, backdrop: undefined }))).toBe(
+      'INVALID_VIEW_RELATIONSHIP',
+    );
   });
 
   it('keeps the PaletteError of the adapter', async () => {
@@ -166,5 +234,15 @@ describe('sampleContrast with a fake adapter', () => {
     expect(await codeOf(createSampleContrast(adapter)(refs))).toBe('CAPTURE_FAILED');
     const outOfRange = fakeAdapter({ r: 255, g: 0, b: 0, a: 1 }).adapter;
     expect(await codeOf(createSampleContrast(outOfRange)(refs))).toBe('CAPTURE_FAILED');
+  });
+
+  it.each([
+    ['a non-finite capture point', { rgba: { r: 1, g: 1, b: 1, a: 1 }, capturePoint: { x: NaN, y: 0 }, bitmapScale: 2 }],
+    ['a zero bitmap scale', { rgba: { r: 1, g: 1, b: 1, a: 1 }, capturePoint: { x: 0, y: 0 }, bitmapScale: 0 }],
+    ['no color', { capturePoint: { x: 0, y: 0 }, bitmapScale: 2 }],
+    ['no sample', undefined],
+  ])('rejects an adapter sample with %s', async (_name, sample) => {
+    const adapter: CaptureAdapter = { capture: async () => sample as unknown as CaptureSample };
+    expect(await codeOf(createSampleContrast(adapter)(refs))).toBe('CAPTURE_FAILED');
   });
 });
